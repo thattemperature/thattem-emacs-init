@@ -1,7 +1,7 @@
 ;;; Thattem-emacs-init --- my emacs settings  -*- lexical-binding: t; -*-
 
 ;; Author: That Temperature <2719023332@qq.com>
-;; Package-Requires: ((emacs "30.1") agenix colorful-mode company company-posframe company-prescient compile-multi compile-multi-nerd-icons consult consult-company consult-compile-multi consult-eglot consult-flyspell consult-org-roam consult-projectile consult-yasnippet eaf eglot envrc fish-completion flymake forge haskell-ts-mode holo-layer kotlin-ts-mode magit marginalia modus-themes nerd-icons nerd-icons-completion nerd-icons-dired nix-ts-mode nixfmt orderless org org-roam prescient projectile rainbow-delimiters restart-emacs sdcv sqlite3 thattem-mode-line thattem-tab-bar tramp treesit-auto undo-tree use-package verilog-ts-mode vertico vertico-prescient vhdl-ts-mode xref yasnippet yasnippet-snippets)
+;; Package-Requires: ((emacs "30.1") agenix colorful-mode company company-posframe company-prescient compile-multi compile-multi-nerd-icons consult consult-company consult-compile-multi consult-eglot consult-flyspell consult-org-roam consult-projectile consult-yasnippet eaf eglot envrc fennel-mode fish-completion flymake forge haskell-ts-mode holo-layer kotlin-ts-mode magit marginalia modus-themes nerd-icons nerd-icons-completion nerd-icons-dired nix-ts-mode nixfmt orderless org org-roam prescient projectile rainbow-delimiters restart-emacs sdcv sqlite3 thattem-mode-line thattem-tab-bar tramp treesit-auto undo-tree use-package verilog-ts-mode vertico vertico-prescient vhdl-ts-mode xref yasnippet yasnippet-snippets)
 ;; URL: https://github.com/thattemperature/thattem-emacs-init
 
 ;; This program is free software: you can redistribute it and/or modify
@@ -332,11 +332,13 @@
      ((nix-mode nix-ts-mode) "nil")
      ((sh-mode bash-ts-mode) .
       ("bash-language-server" "start"))
-     ((tex-mode latex-mode) "texlab")))
+     ((tex-mode latex-mode) "texlab")
+     ((fennel-mode) "fennel-ls")))
   :hook
   ((c-mode c++-mode rust-mode
            python-mode cmake-mode nix-mode
-           sh-mode tex-mode latex-mode)
+           sh-mode tex-mode latex-mode
+           fennel-mode)
    .
    eglot-ensure)
   ((c-ts-mode c++-ts-mode rust-ts-mode
@@ -373,6 +375,9 @@
      :weight normal
      :slant normal
      :height 200))))
+
+
+(use-package fennel-mode)
 
 
 (use-package ffap
