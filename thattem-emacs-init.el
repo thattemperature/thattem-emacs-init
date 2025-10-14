@@ -53,12 +53,13 @@
   :functions
   company-complete
   :preface
-  (defun completion-at-point-advice-around (fun)
+  (defun thattem-emacs-init--advice-around--completion-at-point (fun)
     (if company-mode
         (company-complete)
       (funcall fun)))
   :init
-  (advice-add 'completion-at-point :around #'completion-at-point-advice-around)
+  (advice-add 'completion-at-point :around
+              #'thattem-emacs-init--advice-around--completion-at-point)
   :hook
   (after-init . global-company-mode))
 
@@ -657,10 +658,8 @@
 
 
 (use-package thattem-tab-bar
-  :bind
-  ("<down-mouse-2>" . thattem-tab-bar-deal-down-mouse-2)
   :hook
-  (after-init . thattem-tab-bar-load))
+  (after-init . thattem-tab-bar-mode))
 
 
 (use-package time
