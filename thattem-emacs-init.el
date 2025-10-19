@@ -654,7 +654,7 @@
 
 (use-package thattem-mode-line
   :hook
-  (after-init . thattem-mode-line-load))
+  (after-init . thattem-mode-line-mode))
 
 
 (use-package thattem-tab-bar
