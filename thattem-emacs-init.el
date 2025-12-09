@@ -333,7 +333,7 @@
        (:check (:command "clippy"))))
      ((python-mode python-ts-mode) "pylsp")
      ((cmake-mode cmake-ts-mode) "cmake-language-server")
-     ((nix-mode nix-ts-mode) "nil")
+     ((nix-mode nix-ts-mode) "nixd")
      ((sh-mode bash-ts-mode) .
       ("bash-language-server" "start"))
      ((tex-mode latex-mode) "texlab")
