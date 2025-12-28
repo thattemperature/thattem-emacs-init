@@ -330,7 +330,8 @@
   :bind
   (:map eglot-mode-map
         ("C-c p r" . eglot-rename)
-        ("C-c p f" . eglot-format))
+        ("C-c p f" . eglot-format)
+        ("C-c p a" . eglot-code-actions))
   :custom
   (eglot-server-programs
    `(((c++-mode c-mode c++-ts-mode c-ts-mode) .
