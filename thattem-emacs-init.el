@@ -25,6 +25,13 @@
 (use-package agenix)
 
 
+(use-package auth-source
+  :custom
+  (auth-sources
+   '(;;PLACEHOLDER:AUTH-SOURCE;;
+     "~/.authinfo")))
+
+
 (use-package autorevert
   :hook
   (after-init . global-auto-revert-mode))
