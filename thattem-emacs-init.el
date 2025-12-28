@@ -1,7 +1,7 @@
 ;;; Thattem-emacs-init --- my emacs settings  -*- lexical-binding: t; -*-
 
 ;; Author: That Temperature <2719023332@qq.com>
-;; Package-Requires: ((emacs "30.1") agenix colorful-mode company company-posframe company-prescient compile-multi compile-multi-nerd-icons consult consult-company consult-compile-multi consult-eglot consult-flyspell consult-org-roam consult-projectile consult-yasnippet eaf eglot envrc fennel-mode fish-completion flymake forge haskell-ts-mode holo-layer kotlin-ts-mode magit marginalia modus-themes nerd-icons nerd-icons-completion nerd-icons-dired nix-ts-mode nixfmt orderless org org-roam prescient projectile rainbow-delimiters restart-emacs sdcv sqlite3 thattem-mode-line thattem-tab-bar tramp treesit-auto undo-tree use-package verilog-ts-mode vertico vertico-prescient vhdl-ts-mode xref yasnippet yasnippet-snippets)
+;; Package-Requires: ((emacs "30.1") agenix colorful-mode company company-posframe company-prescient compile-multi compile-multi-nerd-icons consult consult-company consult-compile-multi consult-eglot consult-flyspell consult-org-roam consult-projectile consult-yasnippet eaf eglot envrc fennel-mode fish-completion flymake forge gptel haskell-ts-mode holo-layer kotlin-ts-mode magit marginalia modus-themes nerd-icons nerd-icons-completion nerd-icons-dired nix-ts-mode nixfmt orderless org org-roam prescient projectile rainbow-delimiters restart-emacs sdcv sqlite3 thattem-mode-line thattem-tab-bar tramp treesit-auto undo-tree use-package verilog-ts-mode vertico vertico-prescient vhdl-ts-mode xref yasnippet yasnippet-snippets)
 ;; URL: https://github.com/thattemperature/thattem-emacs-init
 
 ;; This program is free software: you can redistribute it and/or modify
@@ -490,6 +490,25 @@
   :hook
   (after-init . toggle-frame-maximized)
   (after-init . toggle-frame-fullscreen))
+
+
+(use-package gptel)
+(use-package gptel
+  :bind
+  (("C-c g g" . gptel)
+   ("C-c g s" . gptel-send)
+   ("C-c g m" . gptel-menu)
+   ("C-c g r" . gptel-rewrite))
+  :custom
+  (gptel-model 'deepseek-reasoner)
+  (gptel-backend (gptel-make-deepseek "DeepSeek"
+                   :stream t
+                   :key #'gptel-api-key-from-auth-source))
+  :custom
+  (gptel-highlight-methods '(face))
+  :hook
+  (gptel-post-stream . gptel-auto-scroll)
+  (gptel-post-response . gptel-end-of-response))
 
 
 (use-package haskell-ts-mode)
