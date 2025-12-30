@@ -514,6 +514,13 @@
   (gptel-post-response . gptel-end-of-response))
 
 
+(use-package gptel-agent
+  :bind
+  (("C-c g t" . gptel-agent))
+  :hook
+  (after-init . gptel-agent-update))
+
+
 (use-package haskell-ts-mode)
 
 
