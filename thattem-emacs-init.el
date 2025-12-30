@@ -499,7 +499,9 @@
   (("C-c g g" . gptel)
    ("C-c g s" . gptel-send)
    ("C-c g m" . gptel-menu)
-   ("C-c g r" . gptel-rewrite))
+   ("C-c g r" . gptel-rewrite)
+   ("C-c g a" . gptel-context-add)
+   ("C-c g k" . gptel-context-remove-all))
   :custom
   (gptel-model 'deepseek-reasoner)
   (gptel-backend (gptel-make-deepseek "DeepSeek"
