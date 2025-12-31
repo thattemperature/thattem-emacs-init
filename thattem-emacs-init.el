@@ -500,7 +500,7 @@
    ("C-c g s" . gptel-send)
    ("C-c g m" . gptel-menu)
    ("C-c g r" . gptel-rewrite)
-   ("C-c g a" . gptel-context-add)
+   ("C-c g a" . gptel-add)
    ("C-c g k" . gptel-context-remove-all))
   :custom
   (gptel-model 'deepseek-reasoner)
@@ -623,6 +623,10 @@
 
 
 (use-package projectile
+  :bind
+  (("C-c p k" . projectile-kill-buffers)
+   ("C-c p M-%" . projectile-replace)
+   ("C-c p C-M-%" . projectile-replace-regexp))
   :custom
   (projectile-auto-cleanup-known-projects t)
   :hook
