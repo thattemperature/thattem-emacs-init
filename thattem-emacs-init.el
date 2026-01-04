@@ -504,9 +504,14 @@
    ("C-c g k" . gptel-context-remove-all))
   :custom
   (gptel-model 'deepseek-reasoner)
-  (gptel-backend (gptel-make-deepseek "DeepSeek"
-                   :stream t
-                   :key #'gptel-api-key-from-auth-source))
+  (gptel-backend
+   (prog1
+       (gptel-make-deepseek "DeepSeek"
+         :stream t
+         :key #'gptel-api-key-from-auth-source)
+     (gptel-make-anthropic "Claude"
+       :stream t
+       :key #'gptel-api-key-from-auth-source)))
   :custom
   (gptel-highlight-methods '(face))
   :hook
