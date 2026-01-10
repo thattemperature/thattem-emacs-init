@@ -204,7 +204,17 @@
    #'flyspell-correct-word))
 
 
-(use-package consult-org-roam)
+(use-package consult-org-roam
+  :bind
+  (("C-c n f" . consult-org-roam-file-find)
+   ("C-c n s" . consult-org-roam-search)
+   :map org-mode-map
+   ("C-c b" . consult-org-roam-backlinks)
+   ("C-c f" . consult-org-roam-forward-links))
+  :custom
+  (consult-org-roam-grep-func #'consult-ripgrep)
+  :hook
+  (after-init . consult-org-roam-mode))
 
 
 (use-package consult-projectile
@@ -618,6 +628,10 @@
 
 
 (use-package org-roam
+  :bind
+  (:map org-mode-map
+        ("C-c l" . org-roam-buffer-toggle)
+        ("C-c i" . org-roam-node-insert))
   :hook
   (after-init . org-roam-db-autosync-mode))
 
