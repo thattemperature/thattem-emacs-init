@@ -54,19 +54,11 @@
 
 
 (use-package company
+  :bind
+  (("C-c p p" . company-complete))
   :custom
   (company-idle-delay nil)
   (tab-always-indent 'complete)
-  :functions
-  company-complete
-  :preface
-  (defun thattem-emacs-init--advice-around--completion-at-point (fun)
-    (if company-mode
-        (company-complete)
-      (funcall fun)))
-  :init
-  (advice-add 'completion-at-point :around
-              #'thattem-emacs-init--advice-around--completion-at-point)
   :hook
   (after-init . global-company-mode))
 
@@ -189,7 +181,9 @@
         ("M-s" . consult-company)))
 
 
-(use-package consult-compile-multi)
+(use-package consult-compile-multi
+  :hook
+  (after-init . consult-compile-multi-mode))
 
 
 (use-package consult-eglot)
@@ -372,8 +366,7 @@
 
 (use-package emacs
   :bind
-  (("C-c p p" . completion-at-point)
-   ("C-c s e" . eshell)
+  (("C-c s e" . eshell)
    ("C-c s s" . shell))
   :custom
   (enable-recursive-minibuffers t)
@@ -565,6 +558,9 @@
 
 
 (use-package marginalia
+  :bind
+  (:map minibuffer-local-map
+        ("M-A" . marginalia-cycle))
   :hook
   (after-init . marginalia-mode))
 
