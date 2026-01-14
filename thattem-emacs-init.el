@@ -55,10 +55,20 @@
 
 (use-package company
   :bind
-  (("C-c p p" . company-complete))
+  (("C-c p p" . completion-at-point))
   :custom
   (company-idle-delay nil)
   (tab-always-indent 'complete)
+  :functions
+  company-complete
+  :preface
+  (defun thattem-emacs-init--advice-around--completion-at-point (fun)
+    (if company-mode
+        (company-complete)
+      (funcall fun)))
+  :init
+  (advice-add 'completion-at-point :around
+              #'thattem-emacs-init--advice-around--completion-at-point)
   :hook
   (after-init . global-company-mode))
 
