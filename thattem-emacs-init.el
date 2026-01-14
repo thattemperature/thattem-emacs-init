@@ -542,6 +542,29 @@
 (use-package haskell-ts-mode)
 
 
+(use-package hideshow
+  :bind
+  (:map hs-minor-mode-map
+        ("C-M-<tab>" . hs-toggle-hiding))
+  :functions
+  nerd-icons-octicon
+  :preface
+  (defun thattem-emacs-init--hideshow-overlay (ov)
+    (when (eq 'code (overlay-get ov 'hs))
+      (let* ((face '(:weight bold :box (:line-width (0 . -2))))
+             (nlines (count-lines (overlay-start ov)
+                                  (overlay-end ov)))
+             (info (concat (nerd-icons-octicon "nf-oct-fold"
+                                               :face face)
+                           (propertize(format " %d ..." nlines)
+                                      'face face))))
+        (overlay-put ov 'display info))))
+  :custom
+  (hs-set-up-overlay #'thattem-emacs-init--hideshow-overlay)
+  :hook
+  (prog-mode . hs-minor-mode))
+
+
 (use-package hl-line
   :hook
   (after-init . global-hl-line-mode))
