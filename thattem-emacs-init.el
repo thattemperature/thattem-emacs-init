@@ -470,7 +470,7 @@
 
 (use-package fontset
   :preface
-  (defun init-fonts ()
+  (defun thattem-emacs-init--fonts ()
     (let ((font-families (font-family-list))
           (basic-candidates
            '("Iosevka Nerd Font"
@@ -494,7 +494,7 @@
             (set-fontset-font t nil (font-spec :family family)
                               nil 'append))))))
   :hook
-  (after-init . init-fonts))
+  (after-init . thattem-emacs-init--fonts))
 
 
 (use-package forge)
@@ -585,10 +585,10 @@
   (modus-themes-bold-constructs t)
   (modus-themes-italic-constructs t)
   :preface
-  (defun init-themes ()
+  (defun thattem-emacs-init--themes ()
     (load-theme 'modus-operandi-tinted t))
   :hook
-  (after-init . init-themes))
+  (after-init . thattem-emacs-init--themes))
 
 
 (use-package nerd-icons)
