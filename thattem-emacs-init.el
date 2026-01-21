@@ -382,10 +382,11 @@
   (enable-recursive-minibuffers t)
   (inhibit-startup-screen t)
   (tab-width 4)
-  (truncate-partial-width-windows nil)
   (menu-bar-mode nil)
+  (scroll-bar-mode nil)
   (tool-bar-mode nil)
-  (scroll-bar-mode nil))
+  (truncate-partial-width-windows nil)
+  (x-gtk-use-system-tooltips nil))
 
 
 (use-package envrc
@@ -902,11 +903,6 @@
 (use-package window
   :custom
   (split-width-threshold 96))
-
-
-(use-package x-win
-  :custom
-  (x-gtk-use-system-tooltips nil))
 
 
 (use-package xref
