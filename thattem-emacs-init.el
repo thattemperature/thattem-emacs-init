@@ -289,6 +289,7 @@
   (("C-c a b" . eaf-open-browser)
    ("C-c a h" . eaf-open-browser-with-history))
   :custom
+  (eaf-browser-enable-adblocker t)
   (eaf-browser-auto-import-chrome-cookies t)
   (eaf-browser-chrome-browser-name "Chromium"))
 
