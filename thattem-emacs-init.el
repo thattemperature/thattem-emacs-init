@@ -759,6 +759,9 @@
 
 
 (use-package thattem-mode-line
+  :bind
+  (("C-c t" . thattem-select-shell-window)
+   ("C-c h" . thattem-select-help-window))
   :hook
   (after-init . thattem-mode-line-mode))
 
