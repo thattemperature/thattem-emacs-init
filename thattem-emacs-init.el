@@ -95,13 +95,13 @@
        (concat (projectile-project-root) "CMakeLists.txt"))
       ,(lambda ()
          (list
-          (cons "Cmake generate"
+          (cons "CMake generate"
                 (concat "cmake -S "
                         (projectile-project-root)
                         " -B "
                         (projectile-project-root)
                         "build/"))
-          (cons "Cmake build"
+          (cons "CMake build"
                 (concat "cmake --build "
                         (projectile-project-root)
                         "build/")))))
