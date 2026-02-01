@@ -760,8 +760,8 @@
 
 (use-package thattem-mode-line
   :bind
-  (("C-c t" . thattem-select-shell-window)
-   ("C-c h" . thattem-select-help-window))
+  (("C-c l" . thattem-shell-window-dwim)
+   ("C-c h" . thattem-help-window-dwim))
   :hook
   (after-init . thattem-mode-line-mode))
 
