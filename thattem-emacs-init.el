@@ -1,7 +1,7 @@
 ;;; Thattem-emacs-init --- my emacs settings  -*- lexical-binding: t; -*-
 
 ;; Author: That Temperature <2719023332@qq.com>
-;; Package-Requires: ((emacs "30.1") agenix colorful-mode company company-posframe company-prescient compile-multi compile-multi-nerd-icons consult consult-company consult-compile-multi consult-eglot consult-flyspell consult-org-roam consult-projectile consult-yasnippet eaf eglot envrc fennel-mode fish-completion flymake forge gptel haskell-ts-mode holo-layer kotlin-ts-mode magit marginalia modus-themes nerd-icons nerd-icons-completion nerd-icons-dired nix-ts-mode nixfmt orderless org org-roam prescient projectile rainbow-delimiters restart-emacs rime sdcv sqlite3 thattem-mode-line thattem-tab-bar tramp treesit-auto undo-tree use-package verilog-ts-mode vertico vertico-prescient vhdl-ts-mode xref yasnippet yasnippet-snippets)
+;; Package-Requires: ((emacs "30.1") agenix colorful-mode company company-posframe company-prescient compile-multi compile-multi-nerd-icons consult consult-company consult-compile-multi consult-eglot consult-flyspell consult-org-roam consult-projectile consult-yasnippet eglot envrc fennel-mode fish-completion flymake forge gptel haskell-ts-mode kotlin-ts-mode magit marginalia modus-themes nerd-icons nerd-icons-completion nerd-icons-dired nix-ts-mode nixfmt orderless org org-roam prescient projectile rainbow-delimiters restart-emacs rime sdcv sqlite3 thattem-mode-line thattem-tab-bar tramp treesit-auto undo-tree use-package verilog-ts-mode vertico vertico-prescient vhdl-ts-mode xref yasnippet yasnippet-snippets)
 ;; URL: https://github.com/thattemperature/thattem-emacs-init
 
 ;; This program is free software: you can redistribute it and/or modify
@@ -274,73 +274,6 @@
   (after-init . global-display-line-numbers-mode))
 
 
-(use-package eaf
-  :custom
-  (eaf-webengine-default-zoom 1.5))
-
-
-(use-package eaf-airshare
-  :bind
-  (("C-c a s" . eaf-open-airshare)))
-
-
-(use-package eaf-browser
-  :bind
-  (("C-c a b" . eaf-open-browser)
-   ("C-c a h" . eaf-open-browser-with-history))
-  :custom
-  (eaf-browser-enable-adblocker t)
-  (eaf-browser-auto-import-chrome-cookies t)
-  (eaf-browser-chrome-browser-name "Chromium"))
-
-
-(use-package eaf-camera
-  :bind
-  (("C-c a c" . eaf-open-camera)))
-
-
-(use-package eaf-image-viewer)
-
-
-(use-package eaf-js-video-player)
-
-
-(use-package eaf-map
-  :bind
-  (("C-c a m" . eaf-open-map)))
-
-
-(use-package eaf-pdf-viewer)
-
-
-(use-package eaf-pyqterminal
-  :bind
-  (("C-c a t" . eaf-open-pyqterminal))
-  :custom
-  (eaf-pyqterminal-font-family "Iosevka Nerd Font")
-  (eaf-pyqterminal-font-size 24)
-  (eaf-pyqterminal-cursor-type "bar")
-  (eaf-pyqterminal-cursor-size 4)
-  (eaf-pyqterminal-color-schema
-   '(("blue" "#0000c0")
-     ("brown" "#802020")
-     ("cyan" "#00c0c0")
-     ("cursor" "#d00000")
-     ("green" "#00c000")
-     ("magenta" "#c000c0")
-     ("red" "#c00000")
-     ("yellow" "#c0c000")
-     ("brightblack" "#404040")
-     ("brightblue" "#4040e0")
-     ("brightbrown" "#a06060")
-     ("brightcyan" "#40e0e0")
-     ("brightgreen" "#40e040")
-     ("brightmagenta" "#e040e0")
-     ("brightred" "#e04040")
-     ("brightwhite" "#e0e0e0")
-     ("brightyellow" "#e0e040"))))
-
-
 (use-package eglot
   :bind
   (:map eglot-mode-map
@@ -570,15 +503,6 @@
 (use-package hl-line
   :hook
   (after-init . global-hl-line-mode))
-
-
-(use-package holo-layer
-  :custom
-  (holo-layer-enable-cursor-animation t)
-  (holo-layer-cursor-alpha 128)
-  (holo-layer-cursor-animation-type "jelly easing")
-  :hook
-  (after-init . holo-layer-enable))
 
 
 (use-package isearch
