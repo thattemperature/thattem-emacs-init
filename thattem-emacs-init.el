@@ -55,7 +55,10 @@
 
 (use-package company
   :bind
-  (("C-c p p" . completion-at-point))
+  (("C-M-<tab>" . completion-at-point)
+   ("M-[" . completion-at-point)
+   ("C-c c" . completion-at-point)
+   ("C-c C-c" . completion-at-point))
   :custom
   (company-idle-delay nil)
   (tab-always-indent 'complete)
@@ -87,7 +90,10 @@
 
 (use-package compile-multi
   :bind
-  (("C-c p c" . compile-multi))
+  (("M-p" . compile-multi)
+   ("M-]" . compile-multi)
+   ("C-c p" . compile-multi)
+   ("C-c C-p" . compile-multi))
   :custom
   (compile-multi-default-directory #'projectile-project-root)
   (compile-multi-config
@@ -221,14 +227,12 @@
   (after-init . consult-org-roam-mode))
 
 
-(use-package consult-projectile
-  :bind
-  (("C-x p" . consult-projectile)))
+(use-package consult-projectile)
 
 
 (use-package consult-yasnippet
   :bind
-  (("C-c p s" . consult-yasnippet)))
+  (("C-c y" . consult-yasnippet)))
 
 
 (use-package delsel
@@ -277,9 +281,9 @@
 (use-package eglot
   :bind
   (:map eglot-mode-map
-        ("C-c p r" . eglot-rename)
-        ("C-c p f" . eglot-format)
-        ("C-c p a" . eglot-code-actions))
+        ("C-c r" . eglot-rename)
+        ("C-c f" . eglot-format)
+        ("C-c a" . eglot-code-actions))
   :custom
   (eglot-server-programs
    `(((c++-mode c-mode c++-ts-mode c-ts-mode) .
@@ -478,9 +482,6 @@
 
 
 (use-package hideshow
-  :bind
-  (:map hs-minor-mode-map
-        ("C-M-<tab>" . hs-toggle-hiding))
   :functions
   nerd-icons-octicon
   :preface
@@ -598,9 +599,13 @@
 
 (use-package projectile
   :bind
-  (("C-c p k" . projectile-kill-buffers)
-   ("C-c p M-%" . projectile-replace)
-   ("C-c p C-M-%" . projectile-replace-regexp))
+  (("C-x p b" . projectile-switch-to-buffer)
+   ("C-x p d" . projectile-find-dir)
+   ("C-x p f" . projectile-find-file)
+   ("C-x p k" . projectile-kill-buffers)
+   ("C-x p p" . projectile-switch-project)
+   ("C-x p C-M-%" . projectile-replace-regexp)
+   ("C-x p M-%" . projectile-replace))
   :custom
   (projectile-auto-cleanup-known-projects t)
   :hook
@@ -638,9 +643,9 @@
 (use-package sdcv
   :bind
   (("M-s i" . sdcv-search-input)
-   ("M-s M-i" . sdcv-search-input+)
+   ("M-s M-i" . sdcv-search-input)
    ("M-s p" . sdcv-search-pointer)
-   ("M-s M-p" . sdcv-search-pointer+)))
+   ("M-s M-p" . sdcv-search-pointer)))
 
 
 (use-package simple
@@ -738,7 +743,7 @@
   :bind
   (:map vertico-map
         ("TAB" . minibuffer-complete)
-        ("<backtab>" . vertico-insert))
+        ("C-M-<tab>" . vertico-insert))
   :hook
   (after-init . vertico-mode))
 
