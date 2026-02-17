@@ -1,7 +1,7 @@
 ;;; Thattem-emacs-init --- my emacs settings  -*- lexical-binding: t; -*-
 
 ;; Author: That Temperature <2719023332@qq.com>
-;; Package-Requires: ((emacs "30.1") agenix colorful-mode company company-posframe company-prescient compile-multi compile-multi-nerd-icons consult consult-company consult-compile-multi consult-eglot consult-flyspell consult-org-roam consult-projectile consult-yasnippet eglot envrc fennel-mode fish-completion flymake forge gptel haskell-ts-mode kotlin-ts-mode magit marginalia modus-themes nerd-icons nerd-icons-completion nerd-icons-dired nix-ts-mode nixfmt orderless org org-roam prescient projectile rainbow-delimiters restart-emacs rime sdcv sqlite3 thattem-mode-line thattem-tab-bar tramp treesit-auto undo-tree use-package verilog-ts-mode vertico vertico-prescient vhdl-ts-mode xref yasnippet yasnippet-snippets)
+;; Package-Requires: (agenix colorful-mode company-posframe company-prescient compile-multi-nerd-icons consult-company consult-compile-multi consult-eglot consult-flyspell consult-org-roam consult-projectile consult-yasnippet envrc fennel-mode fish-completion forge gptel-agent haskell-ts-mode kotlin-ts-mode marginalia modus-themes nerd-icons-dired nix-ts-mode nixfmt rainbow-delimiters restart-emacs rime sdcv thattem-mode-line thattem-tab-bar tramp treesit-auto undo-tree verilog-ts-mode vertico-prescient vhdl-ts-mode yasnippet-snippets)
 ;; URL: https://github.com/thattemperature/thattem-emacs-init
 
 ;; This program is free software: you can redistribute it and/or modify
@@ -323,8 +323,7 @@
   (menu-bar-mode nil)
   (scroll-bar-mode nil)
   (tool-bar-mode nil)
-  (truncate-partial-width-windows nil)
-  (x-gtk-use-system-tooltips nil))
+  (truncate-partial-width-windows nil))
 
 
 (use-package envrc
@@ -541,9 +540,6 @@
   (after-init . thattem-emacs-init--themes))
 
 
-(use-package nerd-icons)
-
-
 (use-package nerd-icons-completion
   :hook
   (after-init . nerd-icons-completion-mode)
@@ -656,9 +652,6 @@
   (org-mode . auto-fill-mode))
 
 
-(use-package sqlite3)
-
-
 (use-package subword
   :hook
   (after-init . global-subword-mode))
@@ -707,15 +700,6 @@
   (display-time-default-load-average nil)
   :hook
   (after-init . display-time-mode))
-
-
-(use-package tooltip
-  :custom-face
-  (tooltip
-   ((t
-     :weight semi-bold
-     :slant italic
-     :height 160))))
 
 
 (use-package tramp)
