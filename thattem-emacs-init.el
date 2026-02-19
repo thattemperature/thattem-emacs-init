@@ -1,7 +1,7 @@
 ;;; Thattem-emacs-init --- my emacs settings  -*- lexical-binding: t; -*-
 
 ;; Author: That Temperature <2719023332@qq.com>
-;; Package-Requires: (agenix colorful-mode company-posframe company-prescient compile-multi-nerd-icons consult-company consult-compile-multi consult-eglot consult-flyspell consult-org-roam consult-projectile consult-yasnippet envrc fennel-mode fish-completion forge gptel-agent haskell-ts-mode kotlin-ts-mode marginalia modus-themes nerd-icons-dired nix-ts-mode nixfmt rainbow-delimiters restart-emacs rime sdcv thattem-mode-line thattem-tab-bar tramp treesit-auto undo-tree verilog-ts-mode vertico-prescient vhdl-ts-mode yasnippet-snippets)
+;; Package-Requires: (agenix colorful-mode company-posframe company-prescient compile-multi-nerd-icons consult-company consult-compile-multi consult-eglot consult-flyspell consult-org-roam consult-projectile consult-yasnippet envrc fennel-mode fish-completion forge gptel-agent haskell-ts-mode kotlin-ts-mode marginalia modus-themes nerd-icons-dired nix-ts-mode nixfmt rainbow-delimiters rime sdcv thattem-mode-line thattem-tab-bar tramp treesit-auto undo-tree verilog-ts-mode vertico-prescient vhdl-ts-mode yasnippet-snippets)
 ;; URL: https://github.com/thattemperature/thattem-emacs-init
 
 ;; This program is free software: you can redistribute it and/or modify
@@ -22,7 +22,9 @@
 ;;; Code:
 
 
-(use-package agenix)
+(use-package agenix
+  :mode
+  ("\\.age\\'" . agenix-mode-if-with-secrets-nix))
 
 
 (use-package auth-source
@@ -35,11 +37,6 @@
 (use-package autorevert
   :hook
   (after-init . global-auto-revert-mode))
-
-
-(use-package c-ts-mode
-  :custom
-  (c-ts-mode-indent-offset 4))
 
 
 (use-package colorful-mode
@@ -58,20 +55,14 @@
   (("C-M-<tab>" . completion-at-point)
    ("M-[" . completion-at-point)
    ("C-c c" . completion-at-point)
-   ("C-c C-c" . completion-at-point))
+   ("C-c C-c" . completion-at-point)
+   ([remap completion-at-point] . company-complete)
+   ([remap indent-for-tab-command] . company-indent-or-complete-common)
+   :map company-active-map
+   ("M-s" . consult-company))
   :custom
   (company-idle-delay nil)
   (tab-always-indent 'complete)
-  :functions
-  company-complete
-  :preface
-  (defun thattem-emacs-init--advice-around--completion-at-point (fun)
-    (if company-mode
-        (company-complete)
-      (funcall fun)))
-  :init
-  (advice-add 'completion-at-point :around
-              #'thattem-emacs-init--advice-around--completion-at-point)
   :hook
   (after-init . global-company-mode))
 
@@ -90,10 +81,11 @@
 
 (use-package compile-multi
   :bind
-  (("M-p" . compile-multi)
-   ("M-]" . compile-multi)
-   ("C-c p" . compile-multi)
-   ("C-c C-p" . compile-multi))
+  (("M-p" . compile)
+   ("M-]" . compile)
+   ("C-c p" . compile)
+   ("C-c C-p" . compile)
+   ([remap compile] . compile-multi))
   :custom
   (compile-multi-default-directory #'projectile-project-root)
   (compile-multi-config
@@ -131,18 +123,18 @@
                         " -o "
                         (file-name-sans-extension
                          (buffer-file-name))
-                        (car executable-binary-suffixes)))
+                        (car exec-suffixes)))
           (cons "G++ and run"
                 (concat "g++ "
                         (buffer-file-name)
                         " -o "
                         (file-name-sans-extension
                          (buffer-file-name))
-                        (car executable-binary-suffixes)
+                        (car exec-suffixes)
                         " ; "
                         (file-name-sans-extension
                          (buffer-file-name))
-                        (car executable-binary-suffixes))))))
+                        (car exec-suffixes))))))
      ((derived-mode-p 'c-ts-mode 'c-mode)
       ,(lambda ()
          (list
@@ -152,37 +144,40 @@
                         " -o "
                         (file-name-sans-extension
                          (buffer-file-name))
-                        (car executable-binary-suffixes)))
+                        (car exec-suffixes)))
           (cons "Gcc and run"
                 (concat "gcc "
                         (buffer-file-name)
                         " -o "
                         (file-name-sans-extension
                          (buffer-file-name))
-                        (car executable-binary-suffixes)
+                        (car exec-suffixes)
                         " ; "
                         (file-name-sans-extension
                          (buffer-file-name))
-                        (car executable-binary-suffixes)))))))))
-
-
-(use-package compile-multi-nerd-icons)
+                        (car exec-suffixes))))))))
+  :config
+  (use-package compile-multi-nerd-icons)
+  (use-package consult-compile-multi
+    :functions
+    consult-compile-multi-mode
+    :config
+    (consult-compile-multi-mode)))
 
 
 (use-package consult
   :bind
-  (("C-x b" . consult-buffer)
-   ("C-x 4 b" . consult-buffer-other-window)
-   ("C-x 5 b" . consult-buffer-other-frame)
-   ("C-x t b" . consult-buffer-other-tab)
-   ("C-y" . consult-yank-from-kill-ring)
-   ("M-y" . consult-yank-replace)
-   ("M-g g" . consult-goto-line)
-   ("M-g M-g" . consult-goto-line)
+  (([remap switch-to-buffer] . consult-buffer)
+   ([remap switch-to-buffer-other-window] . consult-buffer-other-window)
+   ([remap switch-to-buffer-other-frame] . consult-buffer-other-frame)
+   ([remap switch-to-buffer-other-tab] . consult-buffer-other-tab)
+   ([remap yank] . consult-yank-from-kill-ring)
+   ([remap yank-pop] . consult-yank-replace)
+   ([remap goto-line] . consult-goto-line)
+   ([remap imenu] . consult-imenu)
+   ("M-g M-i" . consult-imenu-multi)
    ("M-g m" . consult-mark)
    ("M-g M-m" . consult-global-mark)
-   ("M-g i" . consult-imenu)
-   ("M-g M-i" . consult-imenu-multi)
    ("M-g d" . consult-flymake)
    ("M-g M-d" . consult-flymake)
    ("M-s s" . consult-line)
@@ -197,12 +192,10 @@
         ("M-s" . consult-company)))
 
 
-(use-package consult-compile-multi
-  :hook
-  (after-init . consult-compile-multi-mode))
-
-
-(use-package consult-eglot)
+(use-package consult-eglot
+  :bind
+  (:map eglot-mode-map
+        ("M-s e" . consult-eglot-symbols)))
 
 
 (use-package consult-flyspell
@@ -223,11 +216,15 @@
    ("C-c f" . consult-org-roam-forward-links))
   :custom
   (consult-org-roam-grep-func #'consult-ripgrep)
-  :hook
-  (after-init . consult-org-roam-mode))
+  :functions
+  consult-org-roam-mode
+  :config
+  (consult-org-roam-mode))
 
 
-(use-package consult-projectile)
+(use-package consult-projectile
+  :bind
+  (("C-x P" . consult-projectile)))
 
 
 (use-package consult-yasnippet
@@ -283,7 +280,8 @@
   (:map eglot-mode-map
         ("C-c r" . eglot-rename)
         ("C-c f" . eglot-format)
-        ("C-c a" . eglot-code-actions))
+        ("C-c a" . eglot-code-actions)
+        ("M-s e" . consult-eglot-symbols))
   :custom
   (eglot-server-programs
    `(((c++-mode c-mode c++-ts-mode c-ts-mode) .
@@ -340,7 +338,10 @@
      :height 200))))
 
 
-(use-package fennel-mode)
+(use-package fennel-mode
+  :mode
+  ("\\.fnlm\\'" . fennel-mode)
+  ("\\.fnl\\'" . fennel-mode))
 
 
 (use-package ffap
@@ -435,9 +436,6 @@
   (after-init . thattem-emacs-init--fonts))
 
 
-(use-package forge)
-
-
 (use-package frame
   :hook
   (after-init . toggle-frame-maximized)
@@ -477,7 +475,9 @@
   (after-init . gptel-agent-update))
 
 
-(use-package haskell-ts-mode)
+(use-package haskell-ts-mode
+  :mode
+  ("\\.hs\\'" . haskell-ts-mode))
 
 
 (use-package hideshow
@@ -510,10 +510,16 @@
   (isearch-lazy-count t))
 
 
-(use-package kotlin-ts-mode)
+(use-package kotlin-ts-mode
+  :mode
+  ("\\.kts?\\'" . kotlin-ts-mode))
 
 
-(use-package magit)
+(use-package magit
+  :bind
+  (("C-x g" . magit-status))
+  :config
+  (use-package forge))
 
 
 (use-package marginalia
@@ -551,7 +557,9 @@
   (dired-mode . nerd-icons-dired-mode))
 
 
-(use-package nix-ts-mode)
+(use-package nix-ts-mode
+  :mode
+  ("\\.nix\\'" . nix-ts-mode))
 
 
 (use-package nixfmt
@@ -595,11 +603,11 @@
 
 (use-package projectile
   :bind
-  (("C-x p b" . projectile-switch-to-buffer)
-   ("C-x p d" . projectile-find-dir)
-   ("C-x p f" . projectile-find-file)
-   ("C-x p k" . projectile-kill-buffers)
-   ("C-x p p" . projectile-switch-project)
+  (([remap project-switch-to-buffer] . projectile-switch-to-buffer)
+   ([remap project-find-dir] . projectile-find-dir)
+   ([remap project-find-file] . projectile-find-file)
+   ([remap project-kill-buffers] . projectile-kill-buffers)
+   ([remap project-switch-project] . projectile-switch-project)
    ("C-x p C-M-%" . projectile-replace-regexp)
    ("C-x p M-%" . projectile-replace))
   :custom
@@ -616,11 +624,6 @@
 (use-package recentf
   :hook
   (after-init . recentf-mode))
-
-
-(use-package restart-emacs
-  :bind
-  (("C-c C-x" . restart-emacs)))
 
 
 (use-package rime)
@@ -720,7 +723,9 @@
   (after-init . global-undo-tree-mode))
 
 
-(use-package verilog-ts-mode)
+(use-package verilog-ts-mode
+  :mode
+  ("\\.s?vh?\\'" . verilog-ts-mode))
 
 
 (use-package vertico
@@ -737,7 +742,9 @@
   (after-init . vertico-prescient-mode))
 
 
-(use-package vhdl-ts-mode)
+(use-package vhdl-ts-mode
+  :mode
+  ("\\.vhdl?\\'" . vhdl-ts-mode))
 
 
 (use-package whitespace
@@ -836,7 +843,9 @@
   (after-init . yas-global-mode))
 
 
-(use-package yasnippet-snippets)
+(use-package yasnippet-snippets
+  :hook
+  (after-init . yasnippet-snippets-initialize))
 
 
 (provide 'thattem-emacs-init)
