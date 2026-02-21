@@ -1,7 +1,7 @@
 ;;; Thattem-emacs-init --- my emacs settings  -*- lexical-binding: t; -*-
 
 ;; Author: That Temperature <2719023332@qq.com>
-;; Package-Requires: (agenix colorful-mode company-posframe company-prescient compile-multi-nerd-icons consult-company consult-compile-multi consult-eglot consult-flyspell consult-org-roam consult-projectile consult-yasnippet envrc fennel-mode fish-completion forge gptel-agent haskell-ts-mode kotlin-ts-mode marginalia modus-themes nerd-icons-dired nix-ts-mode nixfmt rainbow-delimiters rime sdcv thattem-mode-line thattem-tab-bar tramp treesit-auto undo-tree verilog-ts-mode vertico-prescient vhdl-ts-mode yasnippet-snippets)
+;; Package-Requires: (agenix colorful-mode company-posframe company-prescient compile-multi-nerd-icons consult-company consult-compile-multi consult-eglot consult-flyspell consult-org-roam consult-projectile consult-yasnippet envrc fennel-mode fish-completion forge gptel-agent haskell-ts-mode kotlin-ts-mode marginalia modus-themes nerd-icons-dired nix-ts-mode nixfmt package-lint rainbow-delimiters rime sdcv thattem-mode-line thattem-tab-bar tramp treesit-auto undo-tree verilog-ts-mode vertico-prescient vhdl-ts-mode yasnippet-snippets)
 ;; URL: https://github.com/thattemperature/thattem-emacs-init
 
 ;; This program is free software: you can redistribute it and/or modify
@@ -594,6 +594,10 @@
         ("C-c i" . org-roam-node-insert))
   :hook
   (after-init . org-roam-db-autosync-mode))
+
+
+(use-package package-lint
+  :defer t)
 
 
 (use-package prescient
