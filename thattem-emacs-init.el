@@ -23,8 +23,7 @@
 
 
 (use-package agenix
-  :mode
-  ("\\.age\\'" . agenix-mode-if-with-secrets-nix))
+  :defer t)
 
 
 (use-package auth-source
@@ -339,9 +338,7 @@
 
 
 (use-package fennel-mode
-  :mode
-  ("\\.fnlm\\'" . fennel-mode)
-  ("\\.fnl\\'" . fennel-mode))
+  :defer t)
 
 
 (use-package ffap
@@ -436,6 +433,10 @@
   (after-init . thattem-emacs-init--fonts))
 
 
+(use-package forge
+  :defer t)
+
+
 (use-package frame
   :hook
   (after-init . toggle-frame-maximized)
@@ -476,8 +477,7 @@
 
 
 (use-package haskell-ts-mode
-  :mode
-  ("\\.hs\\'" . haskell-ts-mode))
+  :defer t)
 
 
 (use-package hideshow
@@ -511,15 +511,11 @@
 
 
 (use-package kotlin-ts-mode
-  :mode
-  ("\\.kts?\\'" . kotlin-ts-mode))
+  :defer t)
 
 
 (use-package magit
-  :bind
-  (("C-x g" . magit-status))
-  :config
-  (use-package forge))
+  :defer t)
 
 
 (use-package marginalia
@@ -558,8 +554,7 @@
 
 
 (use-package nix-ts-mode
-  :mode
-  ("\\.nix\\'" . nix-ts-mode))
+  :defer t)
 
 
 (use-package nixfmt
@@ -709,7 +704,8 @@
   (after-init . display-time-mode))
 
 
-(use-package tramp)
+(use-package tramp
+  :defer t)
 
 
 (use-package treesit-auto
@@ -728,8 +724,7 @@
 
 
 (use-package verilog-ts-mode
-  :mode
-  ("\\.s?vh?\\'" . verilog-ts-mode))
+  :defer t)
 
 
 (use-package vertico
@@ -747,8 +742,7 @@
 
 
 (use-package vhdl-ts-mode
-  :mode
-  ("\\.vhdl?\\'" . vhdl-ts-mode))
+  :defer t)
 
 
 (use-package whitespace
