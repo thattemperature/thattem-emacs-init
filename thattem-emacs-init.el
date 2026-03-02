@@ -602,11 +602,22 @@
 
 (use-package projectile
   :bind
-  (([remap project-switch-to-buffer] . projectile-switch-to-buffer)
+  (([remap project-list-buffers] . projectile-ibuffer)
+   ([remap project-shell-command] . projectile-run-shell-command-in-root)
+   ([remap project-async-shell-command] . projectile-run-async-shell-command-in-root)
+   ([remap project-dired] . projectile-dired)
+   ([remap project-or-external-find-file] . projectile-find-file-dwim)
+   ([remap project-switch-to-buffer] . projectile-switch-to-buffer)
+   ([remap project-compile] . projectile-compile-project)
    ([remap project-find-dir] . projectile-find-dir)
+   ([remap project-eshell] . projectile-run-eshell)
    ([remap project-find-file] . projectile-find-file)
    ([remap project-kill-buffers] . projectile-kill-buffers)
    ([remap project-switch-project] . projectile-switch-project)
+   ([remap project-query-replace-regexp] . projectile-replace-regexp)
+   ([remap project-shell] . projectile-run-shell)
+   ([remap project-vc-dir] . projectile-vc)
+   ([remap project-execute-extended-command] . projectile-run-command-in-root)
    ("C-x p C-M-%" . projectile-replace-regexp)
    ("C-x p M-%" . projectile-replace))
   :custom
