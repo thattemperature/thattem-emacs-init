@@ -34,6 +34,8 @@
 
 
 (use-package autorevert
+  :custom
+  (auto-revert-interval 1)
   :hook
   (after-init . global-auto-revert-mode))
 
@@ -174,6 +176,7 @@
    ([remap yank-pop] . consult-yank-replace)
    ([remap goto-line] . consult-goto-line)
    ([remap imenu] . consult-imenu)
+   ([remap repeat-complex-command] . consult-complex-command)
    ("M-g M-i" . consult-imenu-multi)
    ("M-g m" . consult-mark)
    ("M-g M-m" . consult-global-mark)
@@ -324,6 +327,10 @@
 
 
 (use-package envrc
+  :bind
+  (("C-c e a" . envrc-allow)
+   ("C-c e r" . envrc-reload)
+   ("C-c e d" . envrc-deny))
   :hook
   (after-init . envrc-global-mode))
 
