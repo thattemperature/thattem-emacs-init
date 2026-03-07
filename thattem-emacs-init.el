@@ -336,7 +336,7 @@
    ((t
      :weight normal
      :slant normal
-     :height 200))))
+     :height 210))))
 
 
 (use-package fennel-mode
@@ -699,6 +699,8 @@
   :bind
   (("C-c l" . thattem-shell-window-dwim)
    ("C-c h" . thattem-help-window-dwim))
+  :custom
+  (thattem-mode-line-nerd-height 1.25)
   :hook
   (after-init . thattem-mode-line-mode))
 
