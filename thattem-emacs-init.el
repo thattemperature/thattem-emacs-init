@@ -44,9 +44,7 @@
   :custom
   (colorful-use-prefix t)
   (colorful-prefix-string
-   (concat
-    (nerd-icons-faicon "nf-fae-palette_color")
-    "."))
+   (nerd-icons-faicon "nf-fae-palette_color"))
   :hook
   (after-init . global-colorful-mode))
 
@@ -411,8 +409,7 @@
   (defun thattem-emacs-init--fonts ()
     (let ((font-families (font-family-list))
           (basic-candidates
-           '("Iosevka Nerd Font"
-             "Sarasa Mono SC"))
+           '("Sarasa Mono SC"))
           (other-candidates
            '("Symbols Nerd Font Mono")))
       (let ((filter
@@ -812,10 +809,10 @@
   (whitespace-newline
    ((((class color) (background dark))
      :background unspecified
-     :foreground "#866440")
+     :foreground "#332D26")
     (((class color) (background light))
      :background unspecified
-     :foreground "#866440")
+     :foreground "#CCB499")
     (t :inverse-video t)))
   (whitespace-empty
    ((((class color) (background dark))
