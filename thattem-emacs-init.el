@@ -55,6 +55,7 @@
    ("M-[" . completion-at-point)
    ("C-c c" . completion-at-point)
    ("C-c C-c" . completion-at-point)
+   :map company-mode-map
    ([remap completion-at-point] . company-complete)
    ([remap indent-for-tab-command] . company-indent-or-complete-common)
    :map company-active-map
