@@ -1,7 +1,7 @@
 ;;; Thattem-emacs-init --- my emacs settings  -*- lexical-binding: t; -*-
 
 ;; Author: That Temperature <2719023332@qq.com>
-;; Package-Requires: (agenix colorful-mode company-posframe company-prescient compile-multi-nerd-icons consult-company consult-compile-multi consult-eglot consult-flyspell consult-org-roam consult-yasnippet envrc fennel-mode fish-completion forge gptel-agent haskell-ts-mode kotlin-ts-mode marginalia modus-themes nerd-icons-dired nix-ts-mode nixfmt package-lint rainbow-delimiters rime sdcv thattem-mode-line thattem-tab-bar tramp treesit-auto undo-tree verilog-ts-mode vertico-prescient vhdl-ts-mode yasnippet-snippets)
+;; Package-Requires: (agenix colorful-mode company-posframe company-prescient compile-multi-nerd-icons consult-company consult-compile-multi consult-eglot consult-flyspell consult-org-roam consult-yasnippet envrc fennel-mode fish-completion forge gptel-agent haskell-ts-mode kotlin-ts-mode marginalia nerd-icons-dired nix-ts-mode nixfmt package-lint rainbow-delimiters rime sdcv thattem-mode-line thattem-modus-themes thattem-tab-bar tramp treesit-auto undo-tree verilog-ts-mode vertico-prescient vhdl-ts-mode yasnippet-snippets)
 ;; URL: https://github.com/thattemperature/thattem-emacs-init
 
 ;; This program is free software: you can redistribute it and/or modify
@@ -244,29 +244,6 @@
   (display-line-numbers-major-tick 16)
   (display-line-numbers-minor-tick 4)
   (display-line-numbers-width 4)
-  :custom-face
-  (line-number
-   ((t :weight thin)))
-  (line-number-major-tick
-   ((((class color) (background dark))
-     :box (:line-width (-6 . -6) :color "#9a609a")
-     :foreground "#c04028"
-     :weight bold)
-    (((class color) (background light))
-     :box (:line-width (-6 . -6) :color "#e880e8")
-     :foreground "#a00000"
-     :weight bold)
-    (t :inverse-video t)))
-  (line-number-minor-tick
-   ((((class color) (background dark))
-     :box (:line-width (-6 . -6) :color "#308d8a")
-     :foreground "#33b420"
-     :weight normal)
-    (((class color) (background light))
-     :box (:line-width (-6 . -6) :color "#6cd9d9")
-     :foreground "#0000a0"
-     :weight normal)
-    (t :inverse-video t)))
   :hook
   (after-init . global-display-line-numbers-mode))
 
@@ -370,31 +347,6 @@
 
 
 (use-package flymake
-  :custom-face
-  (flymake-error
-   ((((class color) (background dark))
-     :background "#883d71"
-     :underline nil)
-    (((class color) (background light))
-     :background "#ffb8f4"
-     :underline nil)
-    (t :inverse-video t)))
-  (flymake-warning
-   ((((class color) (background dark))
-     :background "#40522a"
-     :underline nil)
-    (((class color) (background light))
-     :background "#efffd0"
-     :underline nil)
-    (t :inverse-video t)))
-  (flymake-note
-   ((((class color) (background dark))
-     :background "#202a63"
-     :underline nil)
-    (((class color) (background light))
-     :background "#dbe7ff"
-     :underline nil)
-    (t :inverse-video t)))
   :hook
   (emacs-lisp-mode . flymake-mode))
 
@@ -531,13 +483,13 @@
   (after-init . minibuffer-depth-indicate-mode))
 
 
-(use-package modus-themes
+(use-package thattem-modus-themes
   :custom
   (modus-themes-bold-constructs t)
   (modus-themes-italic-constructs t)
   :preface
   (defun thattem-emacs-init--themes ()
-    (load-theme 'modus-operandi-tinted t))
+    (load-theme 'thattem-modus-operandi-tinted t))
   :hook
   (after-init . thattem-emacs-init--themes))
 
@@ -774,63 +726,6 @@
      ))
   (whitespace-display-mappings ;set newline mark
    '((newline-mark ?\n [? ?\n] [?$ ?\n])))
-  :custom-face
-  (whitespace-space
-   ((((class color) (background dark))
-     :box (:line-width (-2 . -2) :color "#331111")
-     :background unspecified)
-    (((class color) (background light))
-     :box (:line-width (-2 . -2) :color "#d1eeee")
-     :background unspecified)
-    (t :inverse-video t)))
-  (whitespace-tab
-   ((((class color) (background dark))
-     :box (:line-width (-2 . -2) :color "#333311")
-     :background unspecified)
-    (((class color) (background light))
-     :box (:line-width (-2 . -2) :color "#eeee00")
-     :background unspecified)
-    (t :inverse-video t)))
-  (whitespace-trailing
-   ((((class color) (background dark))
-     :box (:line-width (-2 . -2) :color "#800000")
-     :background "#594400")
-    (((class color) (background light))
-     :box (:line-width (-2 . -2) :color "#ee0000")
-     :background "#ffdab9")
-    (t :inverse-video t)))
-  (whitespace-line
-   ((((class color) (background dark))
-     :background "#594400"
-     :foreground unspecified)
-    (((class color) (background light))
-     :background "#ffdab9"
-     :foreground unspecified)
-    (t :inverse-video t)))
-  (whitespace-newline
-   ((((class color) (background dark))
-     :background unspecified
-     :foreground "#332D26")
-    (((class color) (background light))
-     :background unspecified
-     :foreground "#CCB499")
-    (t :inverse-video t)))
-  (whitespace-empty
-   ((((class color) (background dark))
-     :background "#233120"
-     :foreground unspecified)
-    (((class color) (background light))
-     :background "#dfffd0"
-     :foreground unspecified)
-    (t :inverse-video t)))
-  (whitespace-missing-newline-at-eof
-   ((((class color) (background dark))
-     :background "#842111"
-     :foreground unspecified)
-    (((class color) (background light))
-     :background "#ff9aaa"
-     :foreground unspecified)
-    (t :inverse-video t)))
   :hook
   (after-init . global-whitespace-mode))
 
