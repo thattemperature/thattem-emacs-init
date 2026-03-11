@@ -1,7 +1,7 @@
 ;;; Thattem-emacs-init --- my emacs settings  -*- lexical-binding: t; -*-
 
 ;; Author: That Temperature <2719023332@qq.com>
-;; Package-Requires: (agenix colorful-mode company-posframe company-prescient compile-multi-nerd-icons consult-company consult-compile-multi consult-eglot consult-flyspell consult-org-roam consult-yasnippet envrc fennel-mode fish-completion forge gptel-agent haskell-ts-mode kotlin-ts-mode marginalia nerd-icons-dired nix-ts-mode nixfmt package-lint rainbow-delimiters rime sdcv thattem-mode-line thattem-modus-themes thattem-tab-bar tramp treesit-auto undo-tree verilog-ts-mode vertico-prescient vhdl-ts-mode yasnippet-snippets)
+;; Package-Requires: ((agenix "1.3") (colorful-mode "1.2.5") (company-posframe "0.7.0") (company-prescient "6.3.2") (compile-multi-nerd-icons "0.7") consult-company (consult-compile-multi "0.7") (consult-eglot "0.5.0") consult-flyspell consult-org-roam consult-yasnippet (envrc "0.12") (fennel-mode "0.9.2") (fish-completion "1.2") (forge "0.6.3") gptel-agent (haskell-ts-mode "1.3.5") kotlin-ts-mode (marginalia "2.10") nerd-icons-dired (nix-ts-mode "0.1.5") nixfmt (package-lint "0.26") (rainbow-delimiters "2.1.5") (rime "1.0.5") sdcv thattem-mode-line thattem-modus-themes thattem-tab-bar (tramp "2.8.1.2") (treesit-auto "1.0.9") (undo-tree "0.8.2") (verilog-ts-mode "0.5.0") (vertico-prescient "6.3.2") (vhdl-ts-mode "0.3.2") (yasnippet-snippets "1.1"))
 ;; URL: https://github.com/thattemperature/thattem-emacs-init
 
 ;; This program is free software: you can redistribute it and/or modify

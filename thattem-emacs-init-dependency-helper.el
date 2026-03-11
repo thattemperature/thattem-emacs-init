@@ -42,7 +42,8 @@
         thattem--nongun-elpa-source
         thattem--gnu-elpa-source)
   "Available package archives, the former takes precedence."
-  :type '(repeat string))
+  :type '(repeat string)
+  :group 'package)
 
 (defun thattem--package-archive-content (archive)
   "Get the content of the ARCHIVE."
@@ -146,6 +147,32 @@ i.e. including dependency of dependency."
        (list it string)
      it)
    package-list))
+
+
+;;;###autoload
+(defun thattem-deal-package-requires ()
+  "Find the \"Package-Requires\" of current buffer and modify it."
+  (interactive)
+  (if-let*
+      ((start-point
+        (save-excursion
+          (goto-char (point-min))
+          (re-search-forward "^;+ +Package-Requires: *" nil t)))
+       (end-point
+        (scan-sexps start-point 1))
+       (origin-list
+        (read (buffer-substring-no-properties
+               start-point end-point))))
+      (let* ((simplified-list
+              (thattem--simplify-dependency-list origin-list))
+             (final-list
+              (thattem--dependency-list-add-version simplified-list)))
+        (if (equal origin-list final-list)
+            (message "Already done!")
+          (delete-region start-point end-point)
+          (goto-char start-point)
+          (insert (prin1-to-string final-list))))
+    (user-error "Cannot get \"Package-Requires\"")))
 
 
 (provide 'thattem-emacs-init-dependency-helper)
