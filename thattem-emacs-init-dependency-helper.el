@@ -23,6 +23,62 @@
 (require 'dash)
 (require 'package)
 
+;;; Deal package version
+
+(defconst thattem--gnu-elpa-source
+  "https://elpa.gnu.org/packages/"
+  "The URL of gnu elpa.")
+
+(defconst thattem--nongun-elpa-source
+  "https://elpa.nongnu.org/nongnu/"
+  "The URL of nongnu elpa.")
+
+(defconst thattem--melpa-stable-source
+  "https://stable.melpa.org/packages/"
+  "The URL of melpa stable.")
+
+(defcustom thattem--package-archives
+  (list thattem--melpa-stable-source
+        thattem--nongun-elpa-source
+        thattem--gnu-elpa-source)
+  "Available package archives, the former takes precedence."
+  :type '(repeat string))
+
+(defun thattem--package-archive-content (archive)
+  "Get the content of the ARCHIVE."
+  (with-temp-buffer
+    (url-insert-file-contents
+     (file-name-concat archive
+                       "archive-contents"))
+    (read (current-buffer))))
+
+(defvar thattem--package-archive-content
+  nil
+  "Cached archive contents.")
+
+(defun thattem--cache-package-archive ()
+  "Cache package archive contents."
+  (setq thattem--package-archive-content
+        (-map #'thattem--package-archive-content
+              thattem--package-archives)))
+
+(defun thattem--archive-package-version (package archive)
+  "Return the version of PACKAGE from ARCHIVE as a list.
+PACKAGE should be a symbol and ARCHIVE should be the return value of
+\\='thattem--package-archive-content\\='."
+  (let ((pkg-entry (assq package (cdr archive))))
+    (when pkg-entry
+      (package-desc-version (package--from-builtin pkg-entry)))))
+
+(defun thattem--package-version (package)
+  "Return the version of PACKAGE."
+  (unless thattem--package-archive-content
+    (thattem--cache-package-archive))
+  (--some (thattem--archive-package-version package it)
+          thattem--package-archive-content))
+
+;;; Deal dependencies
+
 (defun thattem--get-package-dependencies (package)
   "Return the dependency list of PACKAGE."
   (when (atom package)
@@ -65,10 +121,12 @@ i.e. including dependency of dependency."
         (thattem--get-full-dependencies new-sorted)))))
 
 (defun thattem--simplify-dependency-list (package-list)
-  "Simplify the dependency list by removing the dependency of dependency.
-PACKAGE-LIST should be a list of package (symbol)."
+  "Simplify the PACKAGE-LIST by removing the dependency of dependency."
   (let ((simple-list nil)
-        (full-list nil))
+        (full-list nil)
+        (package-list (--map
+                       (if (atom it) it (car it))
+                       package-list)))
     (dolist (package package-list)
       (when (assq package package-alist)
         (unless (assq package full-list)
@@ -78,7 +136,16 @@ PACKAGE-LIST should be a list of package (symbol)."
                   (-snoc (--remove (assq it package-full) simple-list)
                          package))
             (setq full-list (append package-full full-list))))))
-    simple-list))
+    (sort simple-list)))
+
+(defun thattem--dependency-list-add-version (package-list)
+  "Add the newest version of each package in PACKAGE-LIST if possible."
+  (--map
+   (if-let* ((version (thattem--package-version it))
+             (string (package-version-join version)))
+       (list it string)
+     it)
+   package-list))
 
 
 (provide 'thattem-emacs-init-dependency-helper)
