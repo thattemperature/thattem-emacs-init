@@ -395,37 +395,48 @@
   (after-init . toggle-frame-fullscreen))
 
 
-(use-package gptel)
 (use-package gptel
   :bind
   (("C-c g g" . gptel)
-   ("C-c g s" . gptel-send)
+   ("C-c g t" . gptel-agent)
    ("C-c g m" . gptel-menu)
    ("C-c g r" . gptel-rewrite)
    ("C-c g a" . gptel-add)
    ("C-c g k" . gptel-context-remove-all))
   :custom
-  (gptel-model 'deepseek-reasoner)
-  (gptel-backend
-   (prog1
-       (gptel-make-deepseek "DeepSeek"
-         :stream t
-         :key #'gptel-api-key-from-auth-source)
-     (gptel-make-anthropic "Claude"
-       :stream t
-       :key #'gptel-api-key-from-auth-source)))
-  :custom
   (gptel-highlight-methods '(face))
+  (gptel-include-reasoning 'ignore)
+  :functions
+  gptel-api-key-from-auth-source
+  gptel-get-backend
+  :config
+  (use-package gptel-transient)
+  (use-package gptel-rewrite)
+  (use-package gptel-context)
+  (use-package gptel-agent
+    :functions
+    gptel-agent-update
+    :config
+    (gptel-agent-update))
+  (use-package gptel-openai-extras
+    :functions
+    gptel-make-deepseek
+    :config
+    (gptel-make-deepseek "DeepSeek"
+      :stream t
+      :key #'gptel-api-key-from-auth-source))
+  (use-package gptel-anthropic
+    :functions
+    gptel-make-anthropic
+    :config
+    (gptel-make-anthropic "Claude"
+      :stream t
+      :key #'gptel-api-key-from-auth-source))
+  (setq gptel-model 'deepseek-reasoner)
+  (setq gptel-backend (gptel-get-backend "DeepSeek"))
   :hook
   (gptel-post-stream . gptel-auto-scroll)
   (gptel-post-response . gptel-end-of-response))
-
-
-(use-package gptel-agent
-  :bind
-  (("C-c g t" . gptel-agent))
-  :hook
-  (after-init . gptel-agent-update))
 
 
 (use-package haskell-ts-mode
