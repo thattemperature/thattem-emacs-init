@@ -245,30 +245,16 @@
         ("C-c f" . eglot-format)
         ("C-c a" . eglot-code-actions)
         ("M-s e" . consult-eglot-symbols))
-  :custom
-  (eglot-server-programs
-   `(((c++-mode c-mode c++-ts-mode c-ts-mode) .
-      ("clangd" "--header-insertion=never"))
-     ((rust-mode rust-ts-mode) .
-      ("rust-analyzer" :initializationOptions
-       (:check (:command "clippy"))))
-     ((python-mode python-ts-mode) "pylsp")
-     ((cmake-mode cmake-ts-mode) "cmake-language-server")
-     ((nix-mode nix-ts-mode) "nixd")
-     ((sh-mode bash-ts-mode) .
-      ("bash-language-server" "start"))
-     ((tex-mode latex-mode) "texlab")
-     ((fennel-mode) "fennel-ls")))
   :hook
-  ((c-mode c++-mode rust-mode
-           python-mode cmake-mode nix-mode
-           sh-mode tex-mode latex-mode
-           fennel-mode)
+  ((c-mode
+    c++-mode rust-mode python-mode
+    cmake-mode nix-mode sh-mode
+    tex-mode latex-mode fennel-mode)
    .
    eglot-ensure)
-  ((c-ts-mode c++-ts-mode rust-ts-mode
-              python-ts-mode cmake-ts-mode nix-ts-mode
-              bash-ts-mode)
+  ((c-ts-mode
+    c++-ts-mode rust-ts-mode python-ts-mode
+    cmake-ts-mode nix-ts-mode bash-ts-mode)
    .
    eglot-ensure))
 
@@ -589,17 +575,17 @@
   (after-init . recentf-mode))
 
 
-(use-package rime)
 (use-package rime
   :custom
-  (rime-translate-keybindings
-   '("C-p" "C-n" "C-b" "C-f" "C-a" "C-e"
-     "C-d" "C-g" "M-v" "C-v" "M-b" "M-f"
-     "C-x"))
   (rime-show-candidate 'posframe)
   (rime-posframe-style 'vertical)
   (rime-deactivate-when-exit-minibuffer nil)
-  (default-input-method "rime"))
+  (default-input-method "rime")
+  :config
+  (setq rime-translate-keybindings
+        '("C-p" "C-n" "C-b" "C-f" "C-a" "C-e"
+          "C-d" "C-g" "M-v" "C-v" "M-b" "M-f"
+          "C-x")))
 
 
 (use-package sdcv
