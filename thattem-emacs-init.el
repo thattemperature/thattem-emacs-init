@@ -81,7 +81,7 @@
 
 (use-package compile-multi
   :bind
-  (("M-p" . compile)
+  (("C-M-<return>" . compile)
    ("M-]" . compile)
    ("C-c p" . compile)
    ("C-c C-p" . compile)
@@ -658,8 +658,8 @@
 
 (use-package thattem-mode-line
   :bind
-  (("C-c l" . thattem-shell-window-dwim)
-   ("C-c h" . thattem-help-window-dwim))
+  (("C-S-s" . thattem-shell-window-dwim)
+   ("C-S-h" . thattem-help-window-dwim))
   :custom
   (thattem-mode-line-nerd-height 1.25)
   :hook
