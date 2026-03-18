@@ -90,72 +90,62 @@
   (compile-multi-default-directory #'projectile-project-root)
   (compile-multi-config
    `(((projectile-file-exists-p
-       (concat (projectile-project-root) "CMakeLists.txt"))
+       (file-name-concat (projectile-project-root) "CMakeLists.txt"))
       ,(lambda ()
-         (list
-          (cons "CMake generate"
-                (concat "cmake -S "
-                        (projectile-project-root)
-                        " -B "
-                        (projectile-project-root)
-                        "build/"))
-          (cons "CMake build"
-                (concat "cmake --build "
-                        (projectile-project-root)
-                        "build/")))))
-     ((or (projectile-file-exists-p
-           (concat (projectile-project-root) "Makefile"))
-          (projectile-file-exists-p
-           (concat (projectile-project-root) "makefile")))
-      ,(lambda ()
-         (list
-          (cons "Make"
-                (concat "make -k "
-                        (when (projectile-project-root)
-                          " -C ")
-                        (projectile-project-root))))))
+         (let* ((root-dir (projectile-project-root))
+                (build-dir (file-name-as-directory
+                            (file-name-concat root-dir "build"))))
+           (list
+            (cons "CMake Generate"
+                  (concat "cmake -S "
+                          root-dir
+                          " -B "
+                          build-dir))
+            (cons "CMake Build"
+                  (concat "cmake --build "
+                          build-dir))))))
      ((derived-mode-p 'c++-ts-mode 'c++-mode)
       ,(lambda ()
-         (list
-          (cons "G++"
-                (concat "g++ "
-                        (buffer-file-name)
-                        " -o "
-                        (file-name-sans-extension
-                         (buffer-file-name))
-                        (car exec-suffixes)))
-          (cons "G++ and run"
-                (concat "g++ "
-                        (buffer-file-name)
-                        " -o "
-                        (file-name-sans-extension
-                         (buffer-file-name))
-                        (car exec-suffixes)
-                        " ; "
-                        (file-name-sans-extension
-                         (buffer-file-name))
-                        (car exec-suffixes))))))
+         (let* ((file-name (buffer-file-name))
+                (exec-suffix (car exec-suffixes))
+                (exec-name (if (string-blank-p exec-suffix)
+                               (file-name-sans-extension file-name)
+                             (file-name-with-extension
+                              file-name exec-suffix))))
+           (list
+            (cons "G++"
+                  (concat "g++ "
+                          file-name
+                          " -o "
+                          exec-name))
+            (cons "G++ and Run"
+                  (concat "g++ "
+                          file-name
+                          " -o "
+                          exec-name
+                          " ; "
+                          exec-name))))))
      ((derived-mode-p 'c-ts-mode 'c-mode)
       ,(lambda ()
-         (list
-          (cons "Gcc"
-                (concat "gcc "
-                        (buffer-file-name)
-                        " -o "
-                        (file-name-sans-extension
-                         (buffer-file-name))
-                        (car exec-suffixes)))
-          (cons "Gcc and run"
-                (concat "gcc "
-                        (buffer-file-name)
-                        " -o "
-                        (file-name-sans-extension
-                         (buffer-file-name))
-                        (car exec-suffixes)
-                        " ; "
-                        (file-name-sans-extension
-                         (buffer-file-name))
-                        (car exec-suffixes))))))))
+         (let* ((file-name (buffer-file-name))
+                (exec-suffix (car exec-suffixes))
+                (exec-name (if (string-blank-p exec-suffix)
+                               (file-name-sans-extension file-name)
+                             (file-name-with-extension
+                              file-name exec-suffix))))
+           (list
+            (cons "Gcc"
+                  (concat "gcc "
+                          file-name
+                          " -o "
+                          exec-name))
+            (cons "Gcc and Run"
+                  (concat "gcc "
+                          file-name
+                          " -o "
+                          exec-name
+                          " ; "
+                          exec-name))))))))
   :config
   (use-package compile-multi-nerd-icons)
   (use-package consult-compile-multi
