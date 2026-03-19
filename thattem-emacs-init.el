@@ -622,9 +622,7 @@
    ("C-S-f" . tab-next)
    ("C-S-b" . tab-previous))
   :custom
-  (tab-bar-select-tab-modifiers '(meta))
   (tab-bar-new-tab-choice #'get-scratch-buffer-create)
-  (tab-bar-new-tab-to 'rightmost)
   (tab-bar-tab-hints t)
   (tab-bar-history-limit 1024)
   :hook
@@ -643,6 +641,8 @@
 
 
 (use-package thattem-tab-bar
+  :custom
+  (thattem-tab-bar-style 'thattem-tab-bar-format-modern)
   :hook
   (after-init . thattem-tab-bar-mode))
 
