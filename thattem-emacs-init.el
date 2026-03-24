@@ -286,6 +286,7 @@
   :custom-face
   (default
    ((t
+     :family "Sarasa Mono SC"
      :weight normal
      :slant normal
      :height 210))))
@@ -331,34 +332,6 @@
   :hook
   (text-mode . flyspell-mode)
   (prog-mode . flyspell-prog-mode))
-
-
-(use-package fontset
-  :preface
-  (defun thattem-emacs-init--fonts ()
-    (let ((font-families (font-family-list))
-          (basic-candidates
-           '("Sarasa Mono SC"))
-          (other-candidates
-           '("Symbols Nerd Font Mono")))
-      (let ((filter
-             (lambda (family) (member family font-families))))
-        (let ((basic-families
-               (seq-filter filter basic-candidates))
-              (other-families
-               (seq-filter filter other-candidates)))
-          (when basic-families
-            (custom-set-faces
-             `(default
-               ((t :family ,(car basic-families)))))
-            (dolist (family basic-families)
-              (set-fontset-font t nil (font-spec :family family)
-                                nil 'append)))
-          (dolist (family other-families)
-            (set-fontset-font t nil (font-spec :family family)
-                              nil 'append))))))
-  :hook
-  (after-init . thattem-emacs-init--fonts))
 
 
 (use-package forge
@@ -479,6 +452,14 @@
     (load-theme 'thattem-modus-operandi-tinted t))
   :hook
   (after-init . thattem-emacs-init--themes))
+
+
+(use-package nerd-icons
+  :functions
+  nerd-icons-set-font
+  :config
+  (nerd-icons-set-font nerd-icons-font-family)
+  :defer t)
 
 
 (use-package nerd-icons-completion
