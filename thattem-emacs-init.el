@@ -264,8 +264,10 @@
   (("C-c s e" . eshell)
    ("C-c s s" . shell))
   :custom
+  (redisplay-skip-fontification-on-input t)
   (enable-recursive-minibuffers t)
   (inhibit-startup-screen t)
+  (read-process-output-max (* 1024 1024))
   (tab-width 4)
   (menu-bar-mode nil)
   (scroll-bar-mode nil)
@@ -297,6 +299,8 @@
 
 
 (use-package ffap
+  :custom
+  (ffap-machine-p-known 'reject)
   :hook
   (after-init . ffap-bindings))
 
@@ -392,6 +396,11 @@
   :defer t)
 
 
+(use-package help
+  :custom
+  (help-window-select t))
+
+
 (use-package hideshow
   :functions
   nerd-icons-octicon
@@ -441,17 +450,6 @@
 (use-package mb-depth
   :hook
   (after-init . minibuffer-depth-indicate-mode))
-
-
-(use-package thattem-modus-themes
-  :custom
-  (modus-themes-bold-constructs t)
-  (modus-themes-italic-constructs t)
-  :preface
-  (defun thattem-emacs-init--themes ()
-    (load-theme 'thattem-modus-operandi-tinted t))
-  :hook
-  (after-init . thattem-emacs-init--themes))
 
 
 (use-package nerd-icons
@@ -590,28 +588,6 @@
   (after-init . global-subword-mode))
 
 
-(use-package tab-bar
-  :bind
-  (("M-g b" . tab-bar-history-back)
-   ("M-g M-b" . tab-bar-history-back)
-   ("<mouse-8>" . tab-bar-history-back)
-   ("M-g f" . tab-bar-history-forward)
-   ("M-g M-f" . tab-bar-history-forward)
-   ("<mouse-9>" . tab-bar-history-forward)
-   ("C-S-t" . tab-new-to)
-   ("C-S-k" . tab-close)
-   ("C-S-f" . tab-next)
-   ("C-S-b" . tab-previous))
-  :custom
-  (tab-bar-new-tab-choice #'get-scratch-buffer-create)
-  (tab-bar-new-tab-to 'leftmost)
-  (tab-bar-tab-hints t)
-  (tab-bar-history-limit 1024)
-  :hook
-  (after-init . tab-bar-mode)
-  (after-init . tab-bar-history-mode))
-
-
 (use-package thattem-mode-line
   :bind
   (("C-S-s" . thattem-shell-window-dwim)
@@ -622,8 +598,27 @@
   (after-init . thattem-mode-line-mode))
 
 
-(use-package thattem-tab-bar
+(use-package thattem-modus-themes
   :custom
+  (modus-themes-bold-constructs t)
+  (modus-themes-italic-constructs t)
+  :preface
+  (defun thattem-emacs-init--themes ()
+    (load-theme 'thattem-modus-operandi-tinted t))
+  :hook
+  (after-init . thattem-emacs-init--themes))
+
+
+(use-package thattem-tab-bar
+  :bind
+  (("C-S-t" . tab-new-to)
+   ("C-S-k" . tab-close)
+   ("C-S-f" . tab-next)
+   ("C-S-b" . tab-previous))
+  :custom
+  (tab-bar-new-tab-choice #'get-scratch-buffer-create)
+  (tab-bar-new-tab-to 'leftmost)
+  (tab-bar-tab-hints t)
   (thattem-tab-bar-style 'thattem-tab-bar-format-modern)
   (thattem-tab-bar-name-format-function
    #'thattem-tab-bar-name-format-simple)
