@@ -145,7 +145,15 @@
                           " -o "
                           exec-name
                           " ; "
-                          exec-name))))))))
+                          exec-name))))))
+     ((projectile-file-exists-p
+       (file-name-concat (projectile-project-root) "flake.nix"))
+      ,(lambda ()
+         (let* ((root-dir (projectile-project-root)))
+           (list
+            (cons "Update Flake"
+                  (concat "nix flake update --flake "
+                          root-dir))))))))
   :config
   (use-package compile-multi-nerd-icons)
   (use-package consult-compile-multi
