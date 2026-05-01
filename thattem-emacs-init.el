@@ -51,8 +51,7 @@
 
 (use-package company
   :bind
-  (("C-M-<tab>" . completion-at-point)
-   ("M-[" . completion-at-point)
+  (("M-[" . completion-at-point)
    ("C-c c" . completion-at-point)
    ("C-c C-c" . completion-at-point)
    :map company-mode-map
@@ -81,8 +80,7 @@
 
 (use-package compile-multi
   :bind
-  (("C-M-<return>" . compile)
-   ("M-]" . compile)
+  (("M-]" . compile)
    ("C-c p" . compile)
    ("C-c C-p" . compile)
    ([remap compile] . compile-multi))
@@ -670,7 +668,7 @@
   :bind
   (:map vertico-map
         ("TAB" . minibuffer-complete)
-        ("C-M-<tab>" . vertico-insert))
+        ("M-[" . vertico-insert))
   :hook
   (after-init . vertico-mode))
 
@@ -715,10 +713,6 @@
 
 
 (use-package yasnippet
-  :bind
-  (:map yas-minor-mode-map
-        ("TAB" . nil)
-        ("<backtab>" . yas-expand))
   :hook
   (after-init . yas-global-mode))
 
