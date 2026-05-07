@@ -151,7 +151,13 @@
            (list
             (cons "Update Flake"
                   (concat "nix flake update --flake "
-                          root-dir))))))))
+                          root-dir))))))
+     ((projectile-file-exists-p
+       (file-name-concat (projectile-project-root) ".latexmkrc"))
+      ,(lambda ()
+         (list
+          (cons "Latex Make" "latexmk")
+          (cons "Latex Clean" "latexmk -C"))))))
   :config
   (use-package compile-multi-nerd-icons)
   (use-package consult-compile-multi
