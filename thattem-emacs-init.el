@@ -1,7 +1,7 @@
 ;;; Thattem-emacs-init --- my emacs settings  -*- lexical-binding: t; -*-
 
 ;; Author: That Temperature <2719023332@qq.com>
-;; Package-Requires: (corfu corfu-prescient cape (agenix "1.3") (colorful-mode "1.2.5") (compile-multi-nerd-icons "0.7") (consult-compile-multi "0.7") (consult-eglot "0.5.0") consult-flyspell consult-org-roam consult-yasnippet (envrc "0.12") (fennel-mode "0.9.2") (fish-completion "1.2") (forge "0.6.5") gptel-agent (haskell-ts-mode "1.3.5") kotlin-ts-mode (marginalia "2.10") nerd-icons-dired (nix-ts-mode "0.1.5") nixfmt (package-lint "0.26") (rainbow-delimiters "2.1.5") (rime "1.0.5") sdcv thattem-modus-themes thattem-tab-bar thattem-window-actions (tramp "2.8.1.4") (treesit-auto "1.0.9") (undo-tree "0.8.2") (verilog-ts-mode "0.5.0") (vertico-prescient "6.3.2") (vhdl-ts-mode "0.3.2") (yasnippet-snippets "1.1"))
+;; Package-Requires: ((agenix "1.3") (cape "2.6") (colorful-mode "1.2.5") (compile-multi-nerd-icons "0.7") (consult-compile-multi "0.7") (consult-eglot "0.5.0") consult-flyspell consult-org-roam consult-yasnippet (corfu-prescient "6.3.2") (envrc "0.12") (fennel-mode "0.9.2") (fish-completion "1.2") (forge "0.6.5") gptel-agent (haskell-ts-mode "1.3.5") kotlin-ts-mode (marginalia "2.10") nerd-icons-dired (nix-ts-mode "0.1.5") nixfmt (package-lint "0.26") (rainbow-delimiters "2.1.5") (rime "1.0.5") sdcv thattem-modus-themes thattem-tab-bar thattem-window-actions (tramp "2.8.1.4") (treesit-auto "1.0.9") (undo-tree "0.8.2") (verilog-ts-mode "0.5.0") (vertico-prescient "6.3.2") (vhdl-ts-mode "0.3.2") (yasnippet-snippets "1.1"))
 ;; URL: https://github.com/thattemperature/thattem-emacs-init
 
 ;; This program is free software: you can redistribute it and/or modify
@@ -40,6 +40,14 @@
   (after-init . global-auto-revert-mode))
 
 
+(use-package cape
+  :custom
+  (completion-at-point-functions
+   (list #'cape-file
+         #'cape-dabbrev
+         #'tags-completion-at-point-function)))
+
+
 (use-package colorful-mode
   :custom
   (colorful-use-prefix t)
@@ -47,36 +55,6 @@
    (nerd-icons-faicon "nf-fae-palette_color"))
   :hook
   (after-init . global-colorful-mode))
-
-
-(use-package corfu
-  :bind
-  (("M-[" . completion-at-point)
-   ("C-c c" . completion-at-point)
-   ("C-c C-c" . completion-at-point)
-   :map corfu-map
-   ("M-s" . corfu-show-location)) ; consult-company equivalent
-  :custom
-  (corfu-auto nil)               ; matches company-idle-delay nil
-  (corfu-auto-delay 0)           ; immediate if enabled
-  (corfu-popupinfo-delay nil)    ; no auto doc popup delay
-  (tab-always-indent 'complete)
-  :hook
-  (after-init . global-corfu-mode))
-
-
-(use-package corfu-prescient
-  :hook
-  (after-init . corfu-prescient-mode))
-
-
-(use-package cape
-  :bind ("M-p" . cape-prefix-map)
-  :init
-  (add-hook 'completion-at-point-functions #'cape-dabbrev)
-  (add-hook 'completion-at-point-functions #'cape-file)
-  (add-hook 'completion-at-point-functions #'cape-elisp-block)
-  (add-hook 'completion-at-point-functions #'cape-history))
 
 
 (use-package compile-multi
@@ -190,12 +168,6 @@
    ("M-s M-g" . consult-ripgrep)))
 
 
-(use-package consult-company
-  :bind
-  (:map company-active-map
-        ("M-s" . consult-company)))
-
-
 (use-package consult-eglot
   :bind
   (:map eglot-mode-map
@@ -229,6 +201,25 @@
 (use-package consult-yasnippet
   :bind
   (("C-c y" . consult-yasnippet)))
+
+
+(use-package corfu
+  :bind
+  (("M-[" . completion-at-point)
+   ("C-c c" . completion-at-point)
+   ("C-c C-c" . completion-at-point))
+  :custom
+  (corfu-cycle t)
+  (corfu-quit-no-match nil)
+  (corfu-quit-at-boundary nil)
+  (tab-always-indent 'complete)
+  :hook
+  (after-init . global-corfu-mode))
+
+
+(use-package corfu-prescient
+  :hook
+  (after-init . corfu-prescient-mode))
 
 
 (use-package delsel
@@ -495,12 +486,10 @@
 
 (use-package orderless
   :custom
-  (completion-styles '(partial-completion orderless basic))
+  (completion-styles '(orderless basic))
+  (completion-category-defaults nil)
   (completion-category-overrides
-   '((command (styles partial-completion orderless basic))
-     (symbol (styles partial-completion orderless basic))
-     (function (styles partial-completion orderless basic))
-     (variable (styles partial-completion orderless basic)))))
+   '((file (styles partial-completion)))))
 
 
 (use-package org
