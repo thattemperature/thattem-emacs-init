@@ -21,6 +21,15 @@
 
 ;;; Code:
 
+;;; Use-package settings
+
+(eval-and-compile
+  (use-package use-package
+    :custom
+    (use-package-hook-name-suffix nil)))
+
+;;; Common settings
+
 
 (use-package agenix
   :defer t)
@@ -37,7 +46,7 @@
   :custom
   (auto-revert-interval 1)
   :hook
-  (after-init . global-auto-revert-mode))
+  (after-init-hook . global-auto-revert-mode))
 
 
 (use-package cape
@@ -54,7 +63,7 @@
   (colorful-prefix-string
    (nerd-icons-faicon "nf-fae-palette_color"))
   :hook
-  (after-init . global-colorful-mode))
+  (after-init-hook . global-colorful-mode))
 
 
 (use-package compile-multi
@@ -199,17 +208,17 @@
   (corfu-quit-at-boundary nil)
   (tab-always-indent 'complete)
   :hook
-  (after-init . global-corfu-mode))
+  (after-init-hook . global-corfu-mode))
 
 
 (use-package corfu-prescient
   :hook
-  (after-init . corfu-prescient-mode))
+  (after-init-hook . corfu-prescient-mode))
 
 
 (use-package delsel
   :hook
-  (after-init . delete-selection-mode))
+  (after-init-hook . delete-selection-mode))
 
 
 (use-package dired
@@ -224,7 +233,7 @@
   (display-line-numbers-minor-tick 4)
   (display-line-numbers-width 4)
   :hook
-  (after-init . global-display-line-numbers-mode))
+  (after-init-hook . global-display-line-numbers-mode))
 
 
 (use-package eglot
@@ -234,15 +243,15 @@
         ("C-c f" . eglot-format)
         ("C-c a" . eglot-code-actions))
   :hook
-  ((c-mode
-    c++-mode rust-mode python-mode
-    cmake-mode nix-mode sh-mode
-    tex-mode latex-mode fennel-mode)
+  ((c-mode-hook
+    c++-mode-hook rust-mode-hook python-mode-hook
+    cmake-mode-hook nix-mode-hook sh-mode-hook
+    tex-mode-hook latex-mode-hook fennel-mode-hook)
    .
    eglot-ensure)
-  ((c-ts-mode
-    c++-ts-mode rust-ts-mode python-ts-mode
-    cmake-ts-mode nix-ts-mode bash-ts-mode)
+  ((c-ts-mode-hook
+    c++-ts-mode-hook rust-ts-mode-hook python-ts-mode-hook
+    cmake-ts-mode-hook nix-ts-mode-hook bash-ts-mode-hook)
    .
    eglot-ensure))
 
@@ -269,7 +278,7 @@
    ("C-c e r" . envrc-reload)
    ("C-c e d" . envrc-deny))
   :hook
-  (after-init . envrc-global-mode))
+  (after-init-hook . envrc-global-mode))
 
 
 (use-package faces
@@ -290,7 +299,7 @@
   :custom
   (ffap-machine-p-known 'reject)
   :hook
-  (after-init . ffap-bindings))
+  (after-init-hook . ffap-bindings))
 
 
 (use-package files
@@ -312,18 +321,18 @@
 
 (use-package fish-completion
   :hook
-  (after-init . global-fish-completion-mode))
+  (after-init-hook . global-fish-completion-mode))
 
 
 (use-package flymake
   :hook
-  (emacs-lisp-mode . flymake-mode))
+  (emacs-lisp-mode-hook . flymake-mode))
 
 
 (use-package flyspell
   :hook
-  (text-mode . flyspell-mode)
-  (prog-mode . flyspell-prog-mode))
+  (text-mode-hook . flyspell-mode)
+  (prog-mode-hook . flyspell-prog-mode))
 
 
 (use-package forge
@@ -332,8 +341,8 @@
 
 (use-package frame
   :hook
-  (after-init . toggle-frame-maximized)
-  (after-init . toggle-frame-fullscreen))
+  (after-init-hook . toggle-frame-maximized)
+  (after-init-hook . toggle-frame-fullscreen))
 
 
 (use-package gptel
@@ -376,8 +385,8 @@
   (setq gptel-model 'deepseek-reasoner)
   (setq gptel-backend (gptel-get-backend "DeepSeek"))
   :hook
-  (gptel-post-stream . gptel-auto-scroll)
-  (gptel-post-response . gptel-end-of-response))
+  (gptel-post-stream-hook . gptel-auto-scroll)
+  (gptel-post-response-functions . gptel-end-of-response))
 
 
 (use-package haskell-ts-mode
@@ -406,12 +415,12 @@
   :custom
   (hs-set-up-overlay #'thattem-emacs-init--hideshow-overlay)
   :hook
-  (prog-mode . hs-minor-mode))
+  (prog-mode-hook . hs-minor-mode))
 
 
 (use-package hl-line
   :hook
-  (after-init . global-hl-line-mode))
+  (after-init-hook . global-hl-line-mode))
 
 
 (use-package isearch
@@ -432,28 +441,28 @@
   (:map minibuffer-local-map
         ("M-A" . marginalia-cycle))
   :hook
-  (after-init . marginalia-mode))
+  (after-init-hook . marginalia-mode))
 
 
 (use-package mb-depth
   :hook
-  (after-init . minibuffer-depth-indicate-mode))
+  (after-init-hook . minibuffer-depth-indicate-mode))
 
 
 (use-package nerd-icons
   :hook
-  (after-init . nerd-icons-set-font))
+  (after-init-hook . nerd-icons-set-font))
 
 
 (use-package nerd-icons-completion
   :hook
-  (after-init . nerd-icons-completion-mode)
-  (marginalia-mode . nerd-icons-completion-marginalia-setup))
+  (after-init-hook . nerd-icons-completion-mode)
+  (marginalia-mode-hook . nerd-icons-completion-marginalia-setup))
 
 
 (use-package nerd-icons-dired
   :hook
-  (dired-mode . nerd-icons-dired-mode))
+  (dired-mode-hook . nerd-icons-dired-mode))
 
 
 (use-package nix-ts-mode
@@ -462,7 +471,7 @@
 
 (use-package nixfmt
   :hook
-  ((nix-mode nix-ts-mode) . nixfmt-on-save-mode))
+  ((nix-mode-hook nix-ts-mode-hook) . nixfmt-on-save-mode))
 
 
 (use-package orderless
@@ -489,7 +498,7 @@
         ("C-c l" . org-roam-buffer-toggle)
         ("C-c i" . org-roam-node-insert))
   :hook
-  (after-init . org-roam-db-autosync-mode))
+  (after-init-hook . org-roam-db-autosync-mode))
 
 
 (use-package package-lint
@@ -498,7 +507,7 @@
 
 (use-package prescient
   :hook
-  (after-init . prescient-persist-mode))
+  (after-init-hook . prescient-persist-mode))
 
 
 (use-package projectile
@@ -524,17 +533,17 @@
   :custom
   (projectile-auto-cleanup-known-projects t)
   :hook
-  (after-init . projectile-mode))
+  (after-init-hook . projectile-mode))
 
 
 (use-package rainbow-delimiters
   :hook
-  (prog-mode . rainbow-delimiters-mode))
+  (prog-mode-hook . rainbow-delimiters-mode))
 
 
 (use-package recentf
   :hook
-  (after-init . recentf-mode))
+  (after-init-hook . recentf-mode))
 
 
 (use-package rime
@@ -563,12 +572,12 @@
   (save-interprogram-paste-before-kill t)
   (indent-tabs-mode nil)
   :hook
-  (org-mode . auto-fill-mode))
+  (org-mode-hook . auto-fill-mode))
 
 
 (use-package subword
   :hook
-  (after-init . global-subword-mode))
+  (after-init-hook . global-subword-mode))
 
 
 (use-package thattem-modus-themes
@@ -579,7 +588,7 @@
   (defun thattem-emacs-init--themes ()
     (load-theme 'thattem-modus-operandi-tinted t))
   :hook
-  (after-init . thattem-emacs-init--themes))
+  (after-init-hook . thattem-emacs-init--themes))
 
 
 (use-package thattem-tab-bar
@@ -596,7 +605,7 @@
   (thattem-tab-bar-name-format-function
    #'thattem-tab-bar-name-format-simple)
   :hook
-  (after-init . thattem-tab-bar-mode))
+  (after-init-hook . thattem-tab-bar-mode))
 
 
 (use-package thattem-window-actions
@@ -606,7 +615,7 @@
   :custom
   (thattem-mode-line-nerd-height 1.25)
   :hook
-  (after-init . thattem-window-actions-mode))
+  (after-init-hook . thattem-window-actions-mode))
 
 
 (use-package time
@@ -615,7 +624,7 @@
   (display-time-format "%Y%B%d%A %H:%M:%S")
   (display-time-default-load-average nil)
   :hook
-  (after-init . display-time-mode))
+  (after-init-hook . display-time-mode))
 
 
 (use-package tramp
@@ -626,15 +635,15 @@
   :custom
   (treesit-font-lock-level 4)
   :hook
-  (after-init . treesit-auto-add-to-auto-mode-alist)
-  (after-init . global-treesit-auto-mode))
+  (after-init-hook . treesit-auto-add-to-auto-mode-alist)
+  (after-init-hook . global-treesit-auto-mode))
 
 
 (use-package undo-tree
   :custom
   (undo-tree-auto-save-history nil)
   :hook
-  (after-init . global-undo-tree-mode))
+  (after-init-hook . global-undo-tree-mode))
 
 
 (use-package verilog-ts-mode
@@ -647,12 +656,12 @@
         ("TAB" . minibuffer-complete)
         ("M-[" . vertico-insert))
   :hook
-  (after-init . vertico-mode))
+  (after-init-hook . vertico-mode))
 
 
 (use-package vertico-prescient
   :hook
-  (after-init . vertico-prescient-mode))
+  (after-init-hook . vertico-prescient-mode))
 
 
 (use-package vhdl-ts-mode
@@ -676,7 +685,7 @@
   (whitespace-display-mappings ;set newline mark
    '((newline-mark ?\n [? ?\n] [?$ ?\n])))
   :hook
-  (after-init . global-whitespace-mode))
+  (after-init-hook . global-whitespace-mode))
 
 
 (use-package window
@@ -691,12 +700,12 @@
 
 (use-package yasnippet
   :hook
-  (after-init . yas-global-mode))
+  (after-init-hook . yas-global-mode))
 
 
 (use-package yasnippet-snippets
   :hook
-  (after-init . yasnippet-snippets-initialize))
+  (after-init-hook . yasnippet-snippets-initialize))
 
 
 (provide 'thattem-emacs-init)
