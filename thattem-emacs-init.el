@@ -185,7 +185,7 @@
 
 (use-package consult-yasnippet
   :bind
-  (("C-c y" . consult-yasnippet)))
+  (("C-c TAB" . consult-yasnippet)))
 
 
 (use-package corfu
@@ -441,11 +441,8 @@
 
 
 (use-package nerd-icons
-  :functions
-  nerd-icons-set-font
-  :config
-  (nerd-icons-set-font nerd-icons-font-family)
-  :defer t)
+  :hook
+  (after-init . nerd-icons-set-font))
 
 
 (use-package nerd-icons-completion
