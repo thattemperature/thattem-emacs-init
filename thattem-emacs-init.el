@@ -1,7 +1,7 @@
 ;;; Thattem-emacs-init --- my emacs settings  -*- lexical-binding: t; -*-
 
 ;; Author: That Temperature <2719023332@qq.com>
-;; Package-Requires: ((agenix "1.3") (cape "2.6") (colorful-mode "1.2.5") (compile-multi-nerd-icons "0.7") (consult-compile-multi "0.7") (consult-eglot "0.5.0") consult-flyspell consult-org-roam consult-yasnippet (corfu-prescient "6.3.2") (envrc "0.12") (fennel-mode "0.9.2") (fish-completion "1.2") (forge "0.6.5") gptel-agent (haskell-ts-mode "1.3.5") kotlin-ts-mode (marginalia "2.10") nerd-icons-dired (nix-ts-mode "0.1.5") nixfmt (package-lint "0.26") (rainbow-delimiters "2.1.5") (rime "1.0.5") sdcv thattem-modus-themes thattem-tab-bar thattem-window-actions (tramp "2.8.1.4") (treesit-auto "1.0.9") (undo-tree "0.8.2") (verilog-ts-mode "0.5.0") (vertico-prescient "6.3.2") (vhdl-ts-mode "0.3.2") (yasnippet-snippets "1.1"))
+;; Package-Requires: ((agenix "1.3") (cape "2.6") (colorful-mode "1.2.5") (compile-multi-nerd-icons "0.7") (consult-compile-multi "0.7") consult-flyspell consult-org-roam consult-yasnippet (corfu-prescient "6.3.2") (eglot "1.23") (envrc "0.12") (fennel-mode "0.9.2") (fish-completion "1.2") (forge "0.6.5") gptel-agent (haskell-ts-mode "1.3.5") kotlin-ts-mode (marginalia "2.10") nerd-icons-dired (nix-ts-mode "0.1.5") nixfmt (package-lint "0.26") (rainbow-delimiters "2.1.5") (rime "1.0.5") sdcv thattem-modus-themes thattem-tab-bar thattem-window-actions (tramp "2.8.1.4") (treesit-auto "1.0.9") (undo-tree "0.8.2") (verilog-ts-mode "0.5.0") (vertico-prescient "6.3.2") (vhdl-ts-mode "0.3.2") (yasnippet-snippets "1.1"))
 ;; URL: https://github.com/thattemperature/thattem-emacs-init
 
 ;; This program is free software: you can redistribute it and/or modify
@@ -168,12 +168,6 @@
    ("M-s M-g" . consult-ripgrep)))
 
 
-(use-package consult-eglot
-  :bind
-  (:map eglot-mode-map
-        ("M-s e" . consult-eglot-symbols)))
-
-
 (use-package consult-flyspell
   :bind
   (("M-g s" . consult-flyspell)
@@ -247,8 +241,7 @@
   (:map eglot-mode-map
         ("C-c r" . eglot-rename)
         ("C-c f" . eglot-format)
-        ("C-c a" . eglot-code-actions)
-        ("M-s e" . consult-eglot-symbols))
+        ("C-c a" . eglot-code-actions))
   :hook
   ((c-mode
     c++-mode rust-mode python-mode
