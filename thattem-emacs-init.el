@@ -68,7 +68,8 @@
 
 (use-package compile-multi
   :bind
-  (("M-]" . compile)
+  (("C-c o" . compile)
+   ("C-c C-o" . compile)
    ("C-c p" . compile)
    ("C-c C-p" . compile)
    ([remap compile] . compile-multi))
@@ -199,9 +200,10 @@
 
 (use-package corfu
   :bind
-  (("M-[" . completion-at-point)
-   ("C-c c" . completion-at-point)
-   ("C-c C-c" . completion-at-point))
+  (("C-c c" . completion-at-point)
+   ("C-c C-c" . completion-at-point)
+   ("C-c l" . completion-at-point)
+   ("C-c C-l" . completion-at-point))
   :custom
   (corfu-cycle t)
   (corfu-quit-no-match nil)
