@@ -60,6 +60,7 @@
 (use-package colorful-mode
   :custom
   (colorful-use-prefix t)
+  (colorful-allow-mouse-clicks nil)
   (colorful-prefix-string
    (nerd-icons-faicon "nf-fae-palette_color"))
   :hook
@@ -214,6 +215,8 @@
 
 
 (use-package corfu-prescient
+  :custom
+  (corfu-prescient-enable-filtering nil)
   :hook
   (after-init-hook . corfu-prescient-mode))
 
@@ -441,7 +444,7 @@
 (use-package marginalia
   :bind
   (:map minibuffer-local-map
-        ("M-A" . marginalia-cycle))
+        ("C-x TAB" . marginalia-cycle))
   :hook
   (after-init-hook . marginalia-mode))
 
@@ -660,13 +663,14 @@
 (use-package vertico
   :bind
   (:map vertico-map
-        ("TAB" . minibuffer-complete)
-        ("M-[" . vertico-insert))
+        ("C-c TAB" . minibuffer-complete))
   :hook
   (after-init-hook . vertico-mode))
 
 
 (use-package vertico-prescient
+  :custom
+  (vertico-prescient-enable-filtering nil)
   :hook
   (after-init-hook . vertico-prescient-mode))
 
