@@ -1,7 +1,7 @@
 ;;; Thattem-emacs-init --- my emacs settings  -*- lexical-binding: t; -*-
 
 ;; Author: That Temperature <2719023332@qq.com>
-;; Package-Requires: ((agenix "1.3") (cape "2.6") (colorful-mode "1.2.5") (compile-multi-nerd-icons "0.7") (consult-compile-multi "0.7") consult-org-roam consult-yasnippet (corfu-prescient "6.3.2") (eglot "1.23") (envrc "0.12") (fennel-mode "0.9.2") (fish-completion "1.2") (forge "0.6.5") gptel-agent (haskell-ts-mode "1.3.5") kotlin-ts-mode (marginalia "2.10") (nerd-icons-corfu "1.0.0") nerd-icons-dired (nix-ts-mode "0.1.5") nixfmt (package-lint "0.26") (rainbow-delimiters "2.1.5") (rime "1.0.5") sdcv thattem-modus-themes thattem-tab-bar thattem-window-actions (tramp "2.8.1.4") (treesit-auto "1.0.9") (undo-tree "0.8.2") (verilog-ts-mode "0.5.0") (vertico-prescient "6.3.2") (vhdl-ts-mode "0.3.2") (yasnippet-snippets "1.1"))
+;; Package-Requires: ((agenix "1.3") (cape "2.7") (colorful-mode "1.2.5") (compile-multi-nerd-icons "0.7") (consult-compile-multi "0.7") consult-org-roam (corfu-prescient "6.3.2") (eglot-tempel "0.8.2") (envrc "0.12") (fennel-mode "0.9.2") (fish-completion "1.2") (forge "0.6.5") gptel-agent (haskell-ts-mode "1.3.5") kotlin-ts-mode (marginalia "2.11") (nerd-icons-corfu "1.0.0") nerd-icons-dired (nix-ts-mode "0.1.5") nixfmt (package-lint "0.26") (rainbow-delimiters "2.1.5") (rime "1.0.5") sdcv tempel-collection thattem-modus-themes thattem-tab-bar thattem-window-actions (tramp "2.8.1.4") (treesit-auto "1.0.9") (undo-tree "0.8.2") (verilog-ts-mode "0.5.0") (vertico-prescient "6.3.2") (vhdl-ts-mode "0.3.2"))
 ;; URL: https://github.com/thattemperature/thattem-emacs-init
 
 ;; This program is free software: you can redistribute it and/or modify
@@ -194,11 +194,6 @@
   (consult-org-roam-mode))
 
 
-(use-package consult-yasnippet
-  :bind
-  (("C-c TAB" . consult-yasnippet)))
-
-
 (use-package corfu
   :bind
   (("C-c c" . completion-at-point)
@@ -259,6 +254,11 @@
     cmake-ts-mode-hook nix-ts-mode-hook bash-ts-mode-hook)
    .
    eglot-ensure))
+
+
+(use-package eglot-tempel
+  :hook
+  (after-init-hook . eglot-tempel-mode))
 
 
 (use-package emacs
@@ -590,6 +590,18 @@
   (after-init-hook . global-subword-mode))
 
 
+(use-package tempel
+  :bind
+  (("C-c TAB" . tempel-insert)
+   :map tempel-map
+   ("M-p" . tempel-previous)
+   ("M-n" . tempel-next))
+  :config
+  (use-package tempel-collection)
+  :hook
+  (after-init-hook . global-tempel-abbrev-mode))
+
+
 (use-package thattem-modus-themes
   :custom
   (modus-themes-bold-constructs t)
@@ -707,16 +719,6 @@
 (use-package xref
   :custom
   (xref-history-storage #'xref-window-local-history))
-
-
-(use-package yasnippet
-  :hook
-  (after-init-hook . yas-global-mode))
-
-
-(use-package yasnippet-snippets
-  :hook
-  (after-init-hook . yasnippet-snippets-initialize))
 
 
 (provide 'thattem-emacs-init)
