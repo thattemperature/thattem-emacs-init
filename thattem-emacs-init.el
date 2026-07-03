@@ -387,7 +387,7 @@
     (gptel-make-anthropic "Claude"
       :stream t
       :key #'gptel-api-key-from-auth-source))
-  (setq gptel-model 'deepseek-reasoner)
+  (setq gptel-model 'deepseek-v4-pro)
   (setq gptel-backend (gptel-get-backend "DeepSeek"))
   :hook
   (gptel-post-stream-hook . gptel-auto-scroll)
