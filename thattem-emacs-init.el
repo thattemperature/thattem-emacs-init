@@ -1,7 +1,7 @@
 ;;; Thattem-emacs-init --- my emacs settings  -*- lexical-binding: t; -*-
 
 ;; Author: That Temperature <2719023332@qq.com>
-;; Package-Requires: ((agenix "1.3") (cape "2.7") (colorful-mode "1.2.5") (compile-multi-nerd-icons "0.7") (consult-compile-multi "0.7") consult-org-roam (corfu-prescient "6.3.2") (eglot-tempel "0.8.2") (envrc "0.12") (fennel-mode "0.9.2") (fish-completion "1.2") (forge "0.6.5") gptel-agent (haskell-ts-mode "1.3.5") kotlin-ts-mode (marginalia "2.11") (nerd-icons-corfu "1.0.0") nerd-icons-dired (nix-ts-mode "0.1.5") nixfmt (package-lint "0.26") (rainbow-delimiters "2.1.5") (rime "1.0.5") sdcv tempel-collection thattem-modus-themes thattem-tab-bar thattem-window-actions (tramp "2.8.1.4") (undo-tree "0.8.2") (vertico-prescient "6.3.2"))
+;; Package-Requires: ((agenix "1.3") (cape "2.7") (colorful-mode "1.2.5") (compile-multi-nerd-icons "0.7") (consult-compile-multi "0.7") consult-org-roam (corfu-prescient "6.3.2") (eglot-tempel "0.8.2") (envrc "0.12") (fennel-mode "0.9.2") (fish-completion "1.2") (forge "0.6.5") (haskell-ts-mode "1.3.5") kotlin-ts-mode (marginalia "2.11") (nerd-icons-corfu "1.0.0") nerd-icons-dired (nix-ts-mode "0.1.5") nixfmt (orderless "1.7") (package-lint "0.26") (rainbow-delimiters "2.1.5") sdcv tempel-collection thattem-modus-themes thattem-tab-bar thattem-window-actions (tramp "2.8.1.4") (undo-tree "0.8.2") (vertico-prescient "6.3.2"))
 ;; URL: https://github.com/thattemperature/thattem-emacs-init
 
 ;; This program is free software: you can redistribute it and/or modify
@@ -350,50 +350,6 @@
   (after-init-hook . toggle-frame-fullscreen))
 
 
-(use-package gptel
-  :bind
-  (("C-c g g" . gptel)
-   ("C-c g t" . gptel-agent)
-   ("C-c g m" . gptel-menu)
-   ("C-c g r" . gptel-rewrite)
-   ("C-c g a" . gptel-add)
-   ("C-c g k" . gptel-context-remove-all))
-  :custom
-  (gptel-highlight-methods '(face))
-  (gptel-include-reasoning 'ignore)
-  :functions
-  gptel-api-key-from-auth-source
-  gptel-get-backend
-  :config
-  (use-package gptel-transient)
-  (use-package gptel-rewrite)
-  (use-package gptel-context)
-  (use-package gptel-agent
-    :functions
-    gptel-agent-update
-    :config
-    (gptel-agent-update))
-  (use-package gptel-openai-extras
-    :functions
-    gptel-make-deepseek
-    :config
-    (gptel-make-deepseek "DeepSeek"
-      :stream t
-      :key #'gptel-api-key-from-auth-source))
-  (use-package gptel-anthropic
-    :functions
-    gptel-make-anthropic
-    :config
-    (gptel-make-anthropic "Claude"
-      :stream t
-      :key #'gptel-api-key-from-auth-source))
-  (setq gptel-model 'deepseek-v4-pro)
-  (setq gptel-backend (gptel-get-backend "DeepSeek"))
-  :hook
-  (gptel-post-stream-hook . gptel-auto-scroll)
-  (gptel-post-response-functions . gptel-end-of-response))
-
-
 (use-package haskell-ts-mode
   :mode "\\.hs\\'")
 
@@ -554,19 +510,6 @@
 (use-package recentf
   :hook
   (after-init-hook . recentf-mode))
-
-
-(use-package rime
-  :custom
-  (rime-show-candidate 'posframe)
-  (rime-posframe-style 'vertical)
-  (rime-deactivate-when-exit-minibuffer nil)
-  (default-input-method "rime")
-  :config
-  (setq rime-translate-keybindings
-        '("C-p" "C-n" "C-b" "C-f" "C-a" "C-e"
-          "C-d" "C-g" "M-v" "C-v" "M-b" "M-f"
-          "C-x")))
 
 
 (use-package sdcv
