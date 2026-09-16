@@ -158,10 +158,6 @@
 
 
 (use-package consult
-  :init
-  (put 'consult-yank-replace 'delete-selection 'yank)
-  (put 'consult-yank-pop 'delete-selection 'yank)
-  (put 'consult-yank-from-kill-ring 'delete-selection 'yank)
   :bind
   (([remap switch-to-buffer] . consult-buffer)
    ([remap switch-to-buffer-other-window] . consult-buffer-other-window)
